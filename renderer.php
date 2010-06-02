@@ -15,7 +15,7 @@ require_once DOKU_INC.'inc/parser/renderer.php';
 class renderer_plugin_mellelexport extends Doku_Renderer {
 
     function getInfo(){
-        return confToHash(dirname(__FILE__).'/plugin.info');
+        return confToHash(dirname(__FILE__).'/plugin.info.txt');
     }
 	
     function getFormat(){
