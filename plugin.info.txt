@@ -1,7 +1,7 @@
 ﻿base   mellelexport
 author Simon Brüchner
 email  powtac@gmx.de
-date   2010-06-02
+date   2013-01-24
 name   Mellel Export plugin
 desc   Exports a page into a RedleX Mellel File. Just add "~~MELLEL~~" to a wiki page and the download icon appears in the top right. After the main.xml file was downloaded a previous created empty .mellel file has to be openend with the right mouse context menue "expand...". Then the existing main.xml file in this folder has to be deleted and be replaced by the downloaded file. Finished! 
 url    http://www.bruechner.de

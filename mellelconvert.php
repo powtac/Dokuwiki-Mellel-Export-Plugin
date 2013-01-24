@@ -1,7 +1,7 @@
 <?php
 /*
  * wikitomellel
- * Simon Brüchner, 19.11.2007, 2010
+ * Simon Brüchner, 19.11.2007, 2010, 24.01.2013
  */
 function mellelconvert($wikiMarkup,  $zip = true) {
 	define(MELLEL_UEBERSCHRIFT,     '--UEBERSCHRIFT--');
@@ -105,7 +105,7 @@ function mellelconvert($wikiMarkup,  $zip = true) {
 		
 		$zip = new ZipArchive();
 		
-		$tmpZipFile = tmpfile();
+		$tmpZipFile = tempnam(sys_get_temp_dir().'/', 'aaa_inge_wiki_2_mellel_render_');
 		$res = $zip->open($tmpZipFile, ZipArchive::CREATE);
 		if ($res === TRUE) {
 		    $zip->addFromString('main.xml', $mellelMarkup);
