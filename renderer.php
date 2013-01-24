@@ -27,7 +27,8 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
 
     function document_start() {
-        parent::document_start();
+        global $ID;
+        // parent::document_start();
 		
         // If older or equal to 2007-06-26, we need to disable caching
         $dw_version = preg_replace('/[^\d]/', '', getversion());
@@ -36,7 +37,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         }
 		
 		$contentType = class_exists('ZipArchive') ? 'text/xml' : 'text/plain';
-		$contentFileName = class_exists('ZipArcive') ? p_get_first_heading($ID).'.mellel' : 'main.xml';
+		$contentFileName = class_exists('ZipArcive') ? noNS($ID).'.mellel' : 'main.xml';
 		
 		
         // send the content type header, new method after 2007-06-26 (handles caching)
