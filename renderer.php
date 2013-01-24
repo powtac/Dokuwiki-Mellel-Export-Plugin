@@ -34,18 +34,22 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         if (version_compare($dw_version, "20070626", "<=")) {
             $this->info["cache"] = false;
         }
-
+		
+		$contentType = class_exists('ZipArchive') ? 'text/xml' : 'text/plain';
+		$contentFileName = class_exists('ZipArcive') ? p_get_first_heading($ID) : 'main.xml';
+		
+		
         // send the content type header, new method after 2007-06-26 (handles caching)
         if (version_compare($dw_version, "20070626")) {
             // store the content type headers in metadata
             $headers = array(
-                'Content-Type' => 'text/xml',
-                'Content-Disposition' => 'attachment; filename="main.xml";',
+                'Content-Type' => $contentType,
+                'Content-Disposition' => 'attachment; filename="'.$contentFileName.'";',
             );
-            p_set_metadata($ID,array('format' => array('mellelexport' => $headers) ));
+            p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
         } else { // older method
-            header('Content-Type: text/xml');
-            header('Content-Disposition: attachment; filename="main.xml";');
+            header('Content-Type: '.$contentType);
+            header('Content-Disposition: attachment; filename="'.$contentFileName.'";');
         }
     }
 

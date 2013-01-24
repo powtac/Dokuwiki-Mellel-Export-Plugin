@@ -3,7 +3,7 @@
  * wikitomellel
  * Simon Brüchner, 19.11.2007, 2010
  */
-function mellelconvert($wikiMarkup) {
+function mellelconvert($wikiMarkup,  $zip = true) {
 	define(MELLEL_UEBERSCHRIFT,     '--UEBERSCHRIFT--');
 	define(MELLEL_KLAMMER,          '--KLAMMER--');
 	define(MELLEL_HIGHLIGHT,        '--HIGHLIGHT--');
@@ -100,6 +100,22 @@ function mellelconvert($wikiMarkup) {
 		$mellelMarkup .= $row;
 	}
 	$mellelMarkup = str_replace(MELLEL_TEMPLATE_CONTENT, $mellelMarkup, $template);
+	
+	if ($zip AND class_exists('ZipArchive')) {
+		
+		$zip = new ZipArchive();
+		
+		$tmpZipFile = tmpfile();
+		$res = $zip->open($tmpZipFile, ZipArchive::CREATE);
+		if ($res === TRUE) {
+		    $zip->addFromString('main.xml', $mellelMarkup);
+		    $zip->addFromString('.redlex', '');
+		    $zip->close();
+		    
+		    $mellelMarkup = file_get_contents($tmpZipFile);
+		    @unlink($tmpZipFile);
+		}
+	}
 
 	return $mellelMarkup;
 }
