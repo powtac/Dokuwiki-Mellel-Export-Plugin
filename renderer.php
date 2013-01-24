@@ -36,7 +36,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             $this->info["cache"] = false;
         }
 		
-		$contentType 		= class_exists('ZipArchive') ? 'text/xml' 			: 'text/plain';
+		$contentType 		= class_exists('ZipArchive') ? 'application/zip' 	: 'text/xml';
 		$contentFileName 	= class_exists('ZipArchive') ? noNS($ID).'.mellel' 	: 'main.xml';
 		
 		
