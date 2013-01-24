@@ -36,8 +36,8 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             $this->info["cache"] = false;
         }
 		
-		$contentType = class_exists('ZipArchive') ? 'text/xml' : 'text/plain';
-		$contentFileName = class_exists('ZipArcive') ? noNS($ID).'.mellel' : 'main.xml';
+		$contentType 		= class_exists('ZipArchive') ? 'text/xml' 			: 'text/plain';
+		$contentFileName 	= class_exists('ZipArchive') ? noNS($ID).'.mellel' 	: 'main.xml';
 		
 		
         // send the content type header, new method after 2007-06-26 (handles caching)
