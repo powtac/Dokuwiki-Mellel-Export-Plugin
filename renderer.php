@@ -2,7 +2,7 @@
 /**
  * DokuWiki Plugin mellelexport (Renderer Component)
  *
- * @author  Simon Brüchner <powtac at gmx dot de>
+ * @author  Simon BrÃ¼chner <powtac at gmx dot de>
  */
 
 // must be run within Dokuwiki
