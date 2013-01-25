@@ -10,7 +10,7 @@ $m = array(
 	// subpattern = when there are additional parts in the template which have to be replaced (ex. h1 and footnotes)
 	'p' => array(
 		'replacement'	=> 'normaler Text',
-		'alias'			=> array(),
+		'alias'			=> array('cdata', 'section'),
 		'subpattern'	=> array(),
 		'template'		=> "<p style='ps-0' dir='ltr'>
 	                    <c style='cs-0' lang='tl-0'>normaler Text</c>
@@ -23,7 +23,7 @@ $m = array(
 		'subpattern'	=> array('{{LEVEL}}'),
 		'template'		=> "<p style='ps-0' dir='ltr'>
 	                <c style='cs-0'>
-	                  <autotitle level='{{LEVEL}}' index='0' model-string-length='30'>
+	                  <autotitle level='{{LEVEL}}' index='0' >
 	                    <c style='cs-0'>Überschrift 1</c>
 	                  </autotitle>
 	                </c>
@@ -45,6 +45,39 @@ $m = array(
                 </p>",
 	),
 	
+	'internallink' => array(
+		'replacement'	=> 'INTERNALLINK',
+		'alias'			=> array('externallink'),
+		'subpattern'	=> array(),
+		'template'		=> 'INTERNALLINK',
+	),
 	
+	// http://mountaindragon.com/html/iso.htm
+	'doublequoteopening' => array(
+		'replacement'	=> 'SINGLEQUOTECLOSING',
+		'alias'			=> array(),
+		'subpattern'	=> array(),
+		'template'		=> '&#147;',
+	),
 	
+	'doublequoteclosing' => array(
+		'replacement'	=> 'DOUBLEQUOTECLOSING',
+		'alias'			=> array(),
+		'subpattern'	=> array(),
+		'template'		=> '&#148;',
+	),
+
+	'plain' => array(
+		'replacement'	=> 'PLAIN',
+		'alias'			=> array('entity', 'acronym', 'preformatted'),
+		'subpattern'	=> array(),
+		'template'		=> 'PLAIN',
+	),
+	
+	'list' => array(
+		'replacement'	=> 'LIST',
+		'alias'			=> array('listcontent', 'listitem'),
+		'subpattern'	=> array(),
+		'template'		=> '',
+	),
 );
