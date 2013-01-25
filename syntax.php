@@ -63,9 +63,9 @@ class syntax_plugin_mellelexport extends DokuWiki_Syntax_Plugin {
         global $ID, $REV;
         if (!$data) { // Export button
             if($format != 'xhtml') return false;
-            $renderer->doc .= '<a href="'.exportlink($ID, 'mellelexport', ($REV != '' ? 'rev='.$REV : '')).'" title="'.'Export page to Redit Mellel format'.'">';
-            $renderer->doc .= '<img src="'.DOKU_BASE.'lib/plugins/mellelexport/MellelDocument.png" align="right" alt="'.'Export page to Redit Mellel format'.'" width="48" height="48" />';
-            $renderer->doc .= '</a>';
+	            $renderer->doc .= '<a href="'.exportlink($ID, 'mellelexport', ($REV != '' ? 'rev='.$REV : '')).'" title="'.'Export page to Redit Mellel format'.'">';
+	            $renderer->doc .= '<img src="'.DOKU_BASE.'lib/plugins/mellelexport/MellelDocument.png" align="right" alt="'.'Export page to Redit Mellel format'.'" width="48" height="48" />';
+	            $renderer->doc .= '</a>';
             return true;
         } else { // Extended info
             list($info_type, $info_value) = $data;
