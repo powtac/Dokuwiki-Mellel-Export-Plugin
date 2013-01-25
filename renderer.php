@@ -25,6 +25,14 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     function isSingleton(){
         return true;
     }
+    
+    function loadConfig() {
+    	require_once dirname(__FILE__).'/mapping.php';
+    	
+    	$this->conf['m'] = $m;
+    	
+    	parent::loadConfig();
+    }
 
     function document_start() {
         global $ID;
@@ -57,8 +65,72 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     function document_end(){
 		global $ID;
 		
-		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'mellelconvert.php';
-		
-		$this->doc = mellelconvert(rawWiki($ID));
+//		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'mellelconvert.php';
+//		
+//		$this->doc = mellelconvert(rawWiki($ID));
+    }
+    
+    public function __call($name, $arguments) {
+       	$m 		= $this->conf['m'];
+		$args 	= func_get_args();
+       	
+       	if (substr($name, -6) === '_open') {
+       		$type 	= 'OPEN';
+       		$multi 	= true;
+       	} elseif (substr($name, -6) === '_close') {
+       		$type = 'OPEN';
+       		$multi 	= true;
+       	} else {
+       		$type = 'SINGLE';
+       		$multi 	= false;
+       	}
+       	
+       	$tag = rtrim($name, '_open', '_close');
+       	
+       	if (isset($m[$tag])) {
+       		$mapping = $m[$tag];
+       	} else {
+       		foreach ($m as $key => $value) {
+       			if (in_array($tag, $value['alias'])) {
+       				$mapping = $m[$key];
+       				break;
+       			}
+       		}
+       	}
+       	
+       	if (!strlen($mapping)) {
+       		echo 'No mapping found for function "'.$name.'()" and tag "'.$tag.'"';
+       	}
+       	
+       	// Get the corresponding part of the template
+		$templateParts = explode($mapping['replacement'], $mapping['template']);
+       	switch ($type) {
+       		case 'OPEN':
+       			$doc = $templateParts[0];
+   			break;
+   			
+       		case 'CLOSE':       			
+       			$doc = $templateParts[1];
+       		break;
+       		
+       		case 'SINGLE':
+       			$doc = str_replace($mapping['replacement'], $args[0]);
+       		break;
+       		
+       		default:
+       			die('No type set');
+       	}
+       	
+       	
+       	// Check the given arguments and parse additional information
+       	if (!$multi) {
+   			array_shift($args); // remove the first entry
+       	}
+       	
+       	if (isset($args)) {
+       		$doc = str_replace($mapping['subpattern'], $args, $doc);
+       	}
+       	
+       	$this->doc .= $doc;
     }
 }
