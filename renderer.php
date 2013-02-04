@@ -166,7 +166,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        		break;
        		
        		case 'SINGLE':
-       			$args[0] = str_replace('&', '&amp;', $args[0]);
+       			$args[0] = str_replace('"',		'&quot;', 	$args[0]);
+       			$args[0] = str_replace('&', 	'&amp;', 	$args[0]);
+       			$args[0] = str_replace('\'',	'&apos;',	$args[0]);
+       			$args[0] = str_replace('<', 	'&lt;', 	$args[0]);
+       			$args[0] = str_replace('>', 	'&gt;', 	$args[0]);
        			$doc = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
        		break;
        		
