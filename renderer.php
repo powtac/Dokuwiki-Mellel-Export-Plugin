@@ -60,7 +60,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 'Content-Type' => $contentType,
                 'Content-Disposition' => 'attachment; filename="'.$contentFileName.'";',
             );
-           # p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
+           	p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
         } else { // older method
             header('Content-Type: '.$contentType);
             #header('Content-Disposition: attachment; filename="'.$contentFileName.'";');
@@ -77,7 +77,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
 		$template = file_get_contents(dirname(__FILE__).'/template.txt');
 		
 		$this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
-		
+       	
+       	self::xml_errors($this->doc);
+       	
 		$zip = true;
 		#$zip = false;
 		
@@ -143,6 +145,8 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        		}
        	}
        	
+       	#echo 'Tag:'.$tag.' Type:'.$type.' Args:'.var_export($args, 1).'<br />';  
+       	
        	if (!is_array($mapping)) {
        		// echo 'No mapping found for function "'.$name.'()" and tag "'.$tag.'"';
        		#$this->doc .= '';
@@ -200,7 +204,25 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     	return preg_replace('~[\r|\n]\s*<~', '<', trim($xml));
     }
 	
-	
+	static function xml_errors ($xml) {
+	    libxml_use_internal_errors(true);
+	    $doc = new DOMDocument('1.0', 'utf-8');
+	    $doc->loadXML( $xml );
+	    $errors = libxml_get_errors();
+	    
+	    if (count($errors) > 0) {
+	    	echo 'XML Error:';
+	    	echo '<pre style="border: 1px solid red; border-radius:2px; padding:5px">';
+	    	var_dump($errors);
+	    	echo '</pre>';
+	    	echo 'Plain XML:';
+	    	echo '<pre style="border: 1px solid black; border-radius:2px; padding:5px">';
+	    	var_dump(htmlentities($xml));
+	    	echo '</pre>';
+	    	exit;
+	    }
+	}
+		
 	
 	
 	// Dummy mappings of method to __call()
@@ -235,7 +257,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
 
     function strong_close() {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
-    function emphasis_open() {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
+    function emphasis_open() {
+    	
+    	#var_dump(__FUNCTION__);
+    	
+    	call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
     function emphasis_close() {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
