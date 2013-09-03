@@ -93,7 +93,7 @@ $m = array(
 		'replacement'	=> 'INTERNALLINK',
 		'alias'			=> array('externallink'),
 		'subpattern'	=> array('{{TITLE}}'),
-		'template'		=> '[[INTERNALLINK ({{TITLE}})]]',
+		'template'		=> '<c style="cs-0">[[INTERNALLINK ({{TITLE}})]]</c>',
 	),
 
 	// http://mountaindragon.com/html/iso.htm

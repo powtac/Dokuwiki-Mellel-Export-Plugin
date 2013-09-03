@@ -88,7 +88,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         $this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
         
         
-        $this->doc = str_replace('{{WIKIPAGE}}', DOKU_URL.'/'.$ID, $this->doc);
+        $this->doc = str_replace('{{WIKIPAGE}}', str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
         $this->doc = str_replace('{{WIKIDATE}}', date('d.m.Y', $INFO['meta']['date']['created']).' by '.$INFO['meta']['last_change']['user'], $this->doc);
        	
        	self::xml_errors($this->doc);
