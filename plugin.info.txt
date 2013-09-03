@@ -1,7 +1,7 @@
 ﻿base   mellelexport
 author Simon Brüchner
 email  powtac@gmx.de
-date   2013-01-24
+date   2013-09-03
 name   Mellel Export plugin
 desc   Exports a page into a OSX RedleX Mellel File. Just add "~~MELLEL~~" to a wiki page and the download icon appears in the top right of the page.
 url    https://github.com/powtac/Dokuwiki-Mellel-Export-Plugin
