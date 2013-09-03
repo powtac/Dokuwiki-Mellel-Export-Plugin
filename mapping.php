@@ -62,7 +62,7 @@ $m = array(
 		'template'		=> "<p style='ps-0' dir='ltr'>
     							<c style='cs-0'>
     								<autotitle level='{{LEVEL}}' index='0' model-string-length='{{LENGTH}}'>
-    									<c style='cs-0'>UEBERSCHRIFT</c>
+    									UEBERSCHRIFT
     								</autotitle>
     							</c>
 						    </p>",
@@ -91,7 +91,7 @@ $m = array(
 	),
     'externallink' => array(
         'replacement'   => 'EXTERNALLINK',
-        'alias'         => array('internallink'),
+        'alias'         => array('internallink', 'internalmedia'), // TODO internalmedia might not work
         'subpattern'    => array('{{TITLE}}'),
         'template'      => '<c style="cs-0"><hyperlink display-as-link="yes"><display-text><c style="cs-0">{{TITLE}}</c><c style="cs-0"/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>',
     ),
@@ -186,6 +186,13 @@ $m = array(
 		'subpattern'	=> array(),
 		'template'		=> "<c style='cs-0' lang='tl-0' over='co-3'>UNDERLINE</c>",
 	),
+    
+    'deleted' => array(
+        'replacement'   => 'DELETED',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => '<c style="cs-0" over="co-5">DELETED</c>',
+    ),
 	
 	              
 );

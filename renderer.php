@@ -71,8 +71,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 header('Content-Disposition: attachment; filename="'.$contentFileName.'";');
             }
         } else {
+            header('Content-Type: text/html; charset=utf-8');
+            echo '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>'; #<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             echo '<table>';
-            echo '<tr><th></th><th>Tag</th><th></th><th>Type</th><th></th><th>Args</th></tr>';
+            echo '<tr><th></th><th>Tag<br />(Wiki)</th><th></th><th>Type</th><th></th><th>Args</th><th>Output<br />(Mellel)</th></tr>';
         }
     }
 
@@ -132,16 +134,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
     
     function __call($name, $arguments) {
-        #echo '<br />'.$name.'<br />';
-        if (DEBUG) {    	
-            var_dump($arguments);
-        }
-        
+                
        	$m 		= $this->conf['m'];
 		$args 	= func_get_args();
-        
-        #var_dump($args);
-		
 
 		array_shift($args);
 		$args	= $args[0];
@@ -161,12 +156,8 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        	
        	
        	$tag = str_replace(array('_open', '_close'), '', $name); // not nice but short
-       	
-       	if (DEBUG) {
-           	echo '<tr><td></td><td>'.$tag.'</td><td></td><td>'.$type.'</td><td>&nbsp;&nbsp;</td><td>'.htmlentities(var_export($args, 1)).'</td><td></tr>';
-       	}
-       	
-       	
+
+
        	if (isset($m[$tag])) {
        		$mapping = $m[$tag];
        	} else {
@@ -180,9 +171,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        	
 
        	if (!is_array($mapping)) {
-       		echo 'No mapping found for function "'.$name.'()" and tag "'.$tag.'"';
-       		$this->doc .= 'NO MAPPING FOUND';
-       		return;
+       		echo '<span style="color:red; display:block">No mapping found for function "'.$name.'()" and tag "'.$tag.'"</span>'.PHP_EOL;
+       		$this->doc = 'NO MAPPING FOUND'.$this->doc;
+       		exit;
        	}
        	
        	// Get the corresponding part of the template
@@ -199,16 +190,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        		break;
        		
        		case 'SINGLE':
-       			$args[0] = str_replace('"',		'&quot;', 	$args[0]);
+       			// $args[0] = str_replace('"',		'&quot;', 	$args[0]); // seems not to work in headlines
        			$args[0] = str_replace('&', 	'&amp;', 	$args[0]);
        			$args[0] = str_replace('\'',	'&apos;',	$args[0]);
        			$args[0] = str_replace('<', 	'&lt;', 	$args[0]);
        			$args[0] = str_replace('>', 	'&gt;', 	$args[0]);
-
-                if (DEBUG) {                
-                    echo '<br />'.$tag.'<br />';
-                    echo '<br />'.var_dump(func_get_args()).'<br />';
-                }
                 
                 if ($name === 'internallink') {
                     $args[0] = DOKU_URL.$args[0];
@@ -228,6 +214,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 
                 // Auslassungspunkte
                 $args[0] = str_replace(array('...'), array('…'), $args[0]);
+                
+                // Decrease header level by 1
+                if (in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
+                    // $args[0] = (int) $args[0] - 1;
+                }
                 
        			$string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
                 
@@ -260,13 +251,17 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 $hederLength = strlen($arguments[0]);
             }
             
-            $doc = str_replace('{{LENGTH}}', $hederLength + 6 /* don't know the algorithmus, 6 is an assumption */, $doc);
+            $doc = str_replace('{{LENGTH}}', $hederLength + 10 /* don't know the algorithmus, 10 is an assumption */, $doc);
+        }
+    
+        if (DEBUG) {
+            // all args excluded the first one
+            $tmp_args = func_get_args();
+            array_shift($tmp_args);
+            $tmp_args = $tmp_args[0];
+           	echo '<tr><td></td><td style="vertical-align: top;">'.$tag.'</td><td></td><td style="vertical-align: top;">'.$type.'</td><td>&nbsp;&nbsp;</td><td style="vertical-align: top;">'.var_export($tmp_args, 1).'</td><td style="font-family: monospace;">'.trim(htmlentities($doc, NULL, 'UTF-8')).'</td></tr>';
         }
         
-        if (DEBUG) {
-        	echo htmlentities($doc).'<br />'.PHP_EOL;
-        }
-       	
         $this->doc .= $doc;
     }
     
