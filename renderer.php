@@ -221,6 +221,14 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 // Geschützte Leerzeichen für "S. 1234"
                 $args[0] = preg_replace('~\sS\.( {1})\d+~', '<dir-break-space/>', $args[0]);
                 
+                // Geviertstrich und Halbgeviertstrich
+                // TODO utf8 codes possible?
+                // TODO longer lines like "hr" should be rendered first to not confuse this
+                $args[0] = str_replace(array('---', '--'), array('—', '–'), $args[0]);
+                
+                // Auslassungspunkte
+                $args[0] = str_replace(array('...'), array('…'), $args[0]);
+                
        			$string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
                 
                 $doc = $string;

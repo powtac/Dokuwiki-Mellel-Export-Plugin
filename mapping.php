@@ -129,7 +129,7 @@ $m = array(
 		'replacement'	=> 'PLAIN',
 		'alias'			=> array('entity', 'acronym', 'preformatted'),
 		'subpattern'	=> array(),
-		'template'		=> "<c style='cs-0'>p*ainPLAIN</c>", // same template as "p", correct?
+		'template'		=> "<c style='cs-0'>PLAIN</c>", // same template as "p", correct?
 	),
 	
     
