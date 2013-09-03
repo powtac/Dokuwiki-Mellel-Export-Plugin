@@ -1,4 +1,7 @@
 <?php
+
+die(__FILE__.' no longer required');
+
 /*
  * wikitomellel
  * Simon Brüchner, 19.11.2007, 2010, 24.01.2013
@@ -14,6 +17,9 @@ function mellelconvert($wikiMarkup,  $zip = true) {
 	 * Remove unnecessary stuff (headings, empty rows)
 	 */
 	function cleanup($data) {
+        return $data;
+        
+        // do not ignore empty spaces!
 		if (strlen(trim($data)) > 0) {
 			return $data;
 		}
@@ -35,7 +41,7 @@ function mellelconvert($wikiMarkup,  $zip = true) {
 
 	$mellelMarkup   = '';
 	foreach ($wikiMarkup as $row) {
-		$row = trim(utf8_encode($row));
+		$row = /*trim*/(utf8_encode($row));
 
 		$row = str_replace("\n", '', $row);
 		$row = str_replace(' & ', ' &amp; ', $row);
@@ -67,9 +73,9 @@ function mellelconvert($wikiMarkup,  $zip = true) {
 			} else {
 				// Headline   
 				if (substr($row, 0, 6) === '======') {
-					$row = '<p style="ps-2" dir="ltr"><c style="cs-5">'.trim(str_replace('=', '', $row)).'</c></p>';
+					$row = '<p style="ps-2" dir="ltr"><c style="cs-5">'./*trim*/(str_replace('=', '', $row)).'</c></p>';
 				} else {
-					$row = '<p style="ps-3" dir="ltr"><c style="cs-1">'.trim(str_replace('=', '', $row)).'</c></p>';
+					$row = '<p style="ps-3" dir="ltr"><c style="cs-1">'./*trim*/(str_replace('=', '', $row)).'</c></p>';
 				}
 			}
 		} else {
@@ -101,21 +107,24 @@ function mellelconvert($wikiMarkup,  $zip = true) {
 	}
 	$mellelMarkup = str_replace(MELLEL_TEMPLATE_CONTENT, $mellelMarkup, $template);
 	
-	if ($zip AND class_exists('ZipArchive')) {
-		
-		$zip = new ZipArchive();
-		
-		$tmpZipFile = tempnam(sys_get_temp_dir().'/', 'aaa_inge_wiki_2_mellel_render_');
-		$res = $zip->open($tmpZipFile, ZipArchive::CREATE);
-		if ($res === TRUE) {
-		    $zip->addFromString('main.xml', $mellelMarkup);
-		    $zip->addFromString('.redlex', '');
-		    $zip->close();
-		    
-		    $mellelMarkup = file_get_contents($tmpZipFile);
-		    @unlink($tmpZipFile);
-		}
-	}
-
+//	if ($zip AND class_exists('ZipArchive')) {
+//		
+//		$zip = new ZipArchive();
+//		
+//		$tmpZipFile = tempnam(sys_get_temp_dir().'/', 'aaa_inge_wiki_2_mellel_render_');
+//		$res = $zip->open($tmpZipFile, ZipArchive::CREATE);
+//		if ($res === TRUE) {
+//		    $zip->addFromString('main.xml', $mellelMarkup);
+//		    $zip->addFromString('.redlex', '');
+//		    $zip->close();
+//		    
+//		    $mellelMarkup = file_get_contents($tmpZipFile);
+//		    @unlink($tmpZipFile);
+//		}
+//	}
+    
+    
+    $mellelMarkup = microtime().$mellelMarkup;
+    
 	return $mellelMarkup;
 }

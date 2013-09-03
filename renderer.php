@@ -14,22 +14,25 @@ if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
 require_once DOKU_INC . 'inc/parser/renderer.php';
 require_once DOKU_INC . 'inc/html.php';
 
+define('DEBUG', 0);
 
 class renderer_plugin_mellelexport extends Doku_Renderer {
-    var $info = array(
+    public $info = array(
         'cache' => false, // may the rendered result cached?
         'toc'   => false, // render the TOC?
     );
     
-    function getInfo(){
+    public $opened = 0;
+    
+    function getInfo() {
         return confToHash(dirname(__FILE__).'/plugin.info.txt');
     }
 	
-    function getFormat(){
+    function getFormat() {
         return 'mellelexport';
     }
 
-    function isSingleton(){
+    function isSingleton() {
         return false;
     }
     
@@ -42,7 +45,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         global $ID;
 
         parent::document_start();
-		#echo '.';
+
         // If older or equal to 2007-06-26, we need to disable caching
         $dw_version = preg_replace('/[^\d]/', '', getversion());
         if (version_compare($dw_version, "20070626", "<=")) {
@@ -54,34 +57,44 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
 		
 		
         // send the content type header, new method after 2007-06-26 (handles caching)
-        if (version_compare($dw_version, "20070626")) {
-            // store the content type headers in metadata
-            $headers = array(
-                'Content-Type' => $contentType,
-                'Content-Disposition' => 'attachment; filename="'.$contentFileName.'";',
-            );
-           	p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
-        } else { // older method
-            header('Content-Type: '.$contentType);
-            #header('Content-Disposition: attachment; filename="'.$contentFileName.'";');
+        if (!DEBUG) {
+            if (version_compare($dw_version, "20070626")) {
+                // store the content type headers in metadata
+                $headers = array(
+                    'Content-Type' => $contentType,
+                    'Content-Disposition' => 'attachment; filename="'.$contentFileName.'";',
+                );
+               	p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
+            } else { 
+                // older method
+                header('Content-Type: '.$contentType);
+                header('Content-Disposition: attachment; filename="'.$contentFileName.'";');
+            }
+        } else {
+            echo '<table>';
+            echo '<tr><th></th><th>Tag</th><th></th><th>Type</th><th></th><th>Args</th></tr>';
         }
     }
 
-    function document_end(){
-		global $ID;
+    function document_end() {
+		global $ID, $INFO;
+        
+//        echo '<pre>';
+//        var_dump($INFO);
+//        exit;
 		
-//		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'mellelconvert.php';
-//		
-//		$this->doc = mellelconvert(rawWiki($ID));
-
 		$template = file_get_contents(dirname(__FILE__).'/template.txt');
 		
-		$this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
+        $this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
+        
+        
+        $this->doc = str_replace('{{WIKIPAGE}}', DOKU_URL.'/'.$ID, $this->doc);
+        $this->doc = str_replace('{{WIKIDATE}}', date('d.m.Y', $INFO['meta']['date']['created']).' by '.$INFO['meta']['last_change']['user'], $this->doc);
        	
        	self::xml_errors($this->doc);
+        $this->doc = self::remove_whitespace($this->doc);
        	
-		$zip = true;
-		#$zip = false;
+		$zip = !DEBUG;
 		
 		if ($zip AND class_exists('ZipArchive')) {
 			
@@ -98,29 +111,49 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
 			    @unlink($tmpZipFile);
 			}
 		}
-		
-//		$this->doc = htmlentities($this->doc);
+        
+		if (DEBUG) {
+            $this->doc = htmlentities($this->doc);
+        }
+        
 		#echo '<pre>';
 		#header('Content-Type: text/xml');
-		#echo $this->doc;
+        #echo '<table>';
+		#echo $this->doc; exit;
+        #echo '</table>';
+        
+        if ($this->opened != 0) {
+        	die('Wrong number of opened and closed tags!');
+        }
+        
+        if (DEBUG) {
+        	exit;
+        }
     }
     
     function __call($name, $arguments) {
+        #echo '<br />'.$name.'<br />';
+        if (DEBUG) {    	
+            var_dump($arguments);
+        }
+        
        	$m 		= $this->conf['m'];
 		$args 	= func_get_args();
+        
+        #var_dump($args);
 		
-		#echo '.';
-		#var_dump($args);
-		
+
 		array_shift($args);
 		$args	= $args[0];
        	
        	if (substr($name, -5) === '_open') {
        		$type 	= 'OPEN';
        		$multi 	= true;
+            $this->opened++;
        	} elseif (substr($name, -6) === '_close') {
        		$type 	= 'CLOSE';
        		$multi 	= true;
+            $this->opened--;
        	} else {
        		$type = 'SINGLE';
        		$multi 	= false;
@@ -129,9 +162,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        	
        	$tag = str_replace(array('_open', '_close'), '', $name); // not nice but short
        	
-       	// Debug
-       	#echo '&nbsp;';
-       	#echo 'Tag:'.$tag.' Type:'.$type.' Args:'.var_export($args, 1).'<br />';  
+       	if (DEBUG) {
+           	echo '<tr><td></td><td>'.$tag.'</td><td></td><td>'.$type.'</td><td>&nbsp;&nbsp;</td><td>'.htmlentities(var_export($args, 1)).'</td><td></tr>';
+       	}
        	
        	
        	if (isset($m[$tag])) {
@@ -145,15 +178,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        		}
        	}
        	
-       	#echo 'Tag:'.$tag.' Type:'.$type.' Args:'.var_export($args, 1).'<br />';  
-       	
+
        	if (!is_array($mapping)) {
-       		// echo 'No mapping found for function "'.$name.'()" and tag "'.$tag.'"';
-       		#$this->doc .= '';
-       		#echo 'Tag:'.$tag.' Type:'.$type.' Args:'.var_export($args, 1).'<br />';  
+       		echo 'No mapping found for function "'.$name.'()" and tag "'.$tag.'"';
+       		$this->doc .= 'NO MAPPING FOUND';
        		return;
-       	} else {
-       		#echo 'tag '.$tag.' found'.PHP_EOL;
        	}
        	
        	// Get the corresponding part of the template
@@ -175,7 +204,22 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        			$args[0] = str_replace('\'',	'&apos;',	$args[0]);
        			$args[0] = str_replace('<', 	'&lt;', 	$args[0]);
        			$args[0] = str_replace('>', 	'&gt;', 	$args[0]);
-       			$doc = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
+
+                if (DEBUG) {                
+                    echo '<br />'.$tag.'<br />';
+                    echo '<br />'.var_dump(func_get_args()).'<br />';
+                }
+                
+                // Replace linebreaks with a single space
+                // <line-break/> ???
+                $args[0] = preg_replace("~ {0,1}\n~", ' ', $args[0]);
+                
+                // Geschützte Leerzeichen für "S. 1234"
+                $args[0] = preg_replace('~\sS\.( {1})\d+~', '<dir-break-space/>', $args[0]);
+                
+       			$string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
+                
+                $doc = $string;
        		break;
        		
        		default:
@@ -195,13 +239,27 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        	if ($tag === 'externallink') {
        		$doc = urlencode($doc);
        	}
+        
+        // Set header length
+        if ($tag === 'header' OR (isset($key) AND $key === 'header')) {
+            if (function_exists('mb_strlen')) {
+                $hederLength = mb_strlen($arguments[0]);
+            } else {
+                $hederLength = strlen($arguments[0]);
+            }
+            
+            $doc = str_replace('{{LENGTH}}', $hederLength + 6 /* don't know the algorithmus, 6 is an assumption */, $doc);
+        }
+        
+        if (DEBUG) {
+        	echo htmlentities($doc).'<br />'.PHP_EOL;
+        }
        	
-       	
-       	$this->doc .= $doc;
+        $this->doc .= $doc;
     }
     
     static function cleanTemplate($xml) {
-    	return preg_replace('~[\r|\n]\s*<~', '<', trim($xml));
+    	return preg_replace('~>[\r|\n]\s*<~', '><', /*trim*/($xml));
     }
 	
 	static function xml_errors ($xml) {
@@ -222,6 +280,17 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
 	    	exit;
 	    }
 	}
+    
+    static function remove_whitespace($xml) {
+        libxml_use_internal_errors(true);
+        $doc = new DOMDocument('1.0', 'utf-8');
+        $doc->loadXML( $xml );
+        
+        $doc->preserveWhiteSpace    = FALSE;
+        $doc->formatOutput          = FALSE;
+        
+        return self::cleanTemplate($doc->saveXML());
+    } 
 		
 	
 	

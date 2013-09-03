@@ -45,7 +45,7 @@ class syntax_plugin_mellelexport extends DokuWiki_Syntax_Plugin {
      * Connect pattern to lexer
      */
     function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('~~MELLEL~~',$mode,'plugin_mellelexport');
+        $this->Lexer->addSpecialPattern('~~MELLEL~~', $mode, 'plugin_mellelexport');
     }
 
     /**
@@ -63,7 +63,7 @@ class syntax_plugin_mellelexport extends DokuWiki_Syntax_Plugin {
         global $ID, $REV;
         if (!$data) { // Export button
             if($format != 'xhtml') return false;
-	            $renderer->doc .= '<a href="'.exportlink($ID, 'mellelexport', ($REV != '' ? 'rev='.$REV : '')).'" title="Export page to Redit Mellel format">';
+	            $renderer->doc .= '<a href="'.exportlink($ID, 'mellelexport', ($REV != '' ? 'rev='.$REV : '')).'?purge=true" title="Export page to Redit Mellel format">';
 	            $renderer->doc .= '<img src="'.DOKU_BASE.'lib/plugins/mellelexport/MellelDocument.png" align="right" alt="Export page to Redit Mellel format" width="48" height="48" />';
 	            $renderer->doc .= '</a>';
             return true;
