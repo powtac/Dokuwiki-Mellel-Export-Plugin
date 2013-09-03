@@ -4001,6 +4001,7 @@
         <reference-frame value='yes'/>
         <paragraph-break value='no'/>
         <autotitle-frame value='no'/>
+        <hyperlink-frame value='no'/>
         <toolbar value='yes'/>
         <tab value='no'/>
         <page-break value='no'/>

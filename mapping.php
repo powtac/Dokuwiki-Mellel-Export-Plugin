@@ -89,12 +89,12 @@ $m = array(
                               </note>
                             </c>",
 	),
-	'internallink' => array(
-		'replacement'	=> 'INTERNALLINK',
-		'alias'			=> array('externallink'),
-		'subpattern'	=> array('{{TITLE}}'),
-		'template'		=> '<c style="cs-0">[[INTERNALLINK ({{TITLE}})]]</c>',
-	),
+    'externallink' => array(
+        'replacement'   => 'EXTERNALLINK',
+        'alias'         => array('internallink'),
+        'subpattern'    => array('{{TITLE}}'),
+        'template'      => '<c style="cs-0"><hyperlink display-as-link="yes"><display-text><c style="cs-0">{{TITLE}}</c><c style="cs-0"/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>',
+    ),
 
 	// http://mountaindragon.com/html/iso.htm
 	'doublequoteopening' => array(

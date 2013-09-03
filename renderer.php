@@ -14,7 +14,7 @@ if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
 require_once DOKU_INC . 'inc/parser/renderer.php';
 require_once DOKU_INC . 'inc/html.php';
 
-define('DEBUG', 0);
+define('DEBUG', isset($_REQUEST['debug']));
 
 class renderer_plugin_mellelexport extends Doku_Renderer {
     public $info = array(
@@ -208,6 +208,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 if (DEBUG) {                
                     echo '<br />'.$tag.'<br />';
                     echo '<br />'.var_dump(func_get_args()).'<br />';
+                }
+                
+                if ($name === 'internallink') {
+                    $args[0] = DOKU_URL.$args[0];
                 }
                 
                 // Replace linebreaks with a single space
