@@ -184,14 +184,14 @@ $m = array(
 		'replacement'	=> 'UNDERLINE',
 		'alias'			=> array(),
 		'subpattern'	=> array(),
-		'template'		=> "<c style='cs-0' lang='tl-0' over='co-3'>UNDERLINE</c>",
+		'template'		=> "<c style='cs-0' over='co-3'>UNDERLINE</c>",
 	),
     
     'deleted' => array(
         'replacement'   => 'DELETED',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => '<c style="cs-0" over="co-5">DELETED</c>',
+        'template'      => '<c style="cs-0" over="co-4">DELETED</c>',
     ),
 	
 	              

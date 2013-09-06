@@ -822,27 +822,8 @@
     </character-overrides>
     <character-overrides ref='co-3'>
       <line-type value='under'/>
-      <main-font>
-        <font-family>Times New Roman</font-family>
-        <font-face>Regular</font-face>
-      </main-font>
-      <secondary-font>
-        <font-family>Lucida Grande</font-family>
-        <font-face>Regular</font-face>
-      </secondary-font>
     </character-overrides>
     <character-overrides ref='co-4'>
-      <line-type value='none'/>
-      <main-font>
-        <font-family>Times New Roman</font-family>
-        <font-face>Regular</font-face>
-      </main-font>
-      <secondary-font>
-        <font-family>Lucida Grande</font-family>
-        <font-face>Regular</font-face>
-      </secondary-font>
-    </character-overrides>
-    <character-overrides ref='co-5'>
       <line-type value="across"/>
     </character-overrides>
     <paragraph-overrides ref="po-0">
