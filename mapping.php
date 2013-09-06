@@ -41,9 +41,7 @@ $m = array(
 		'subpattern'	=> array(),
         
         // Normaler Text mit Absatz!
-        'template'      => "<p style='ps-0' dir='ltr'>
-                                 normaler Text
-                            </p>",      
+        'template'      => "<p style='ps-0' dir='ltr'>normaler Text</p>",      
 //        'template'      => "<c style='cs-0'>normaler Text</c>",
 	),
 	
@@ -60,11 +58,7 @@ $m = array(
 		'alias'			=> array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
 		'subpattern'	=> array('{{LEVEL}}'),
 		'template'		=> "<p style='ps-0' dir='ltr'>
-    							<c style='cs-0'>
-    								<autotitle level='{{LEVEL}}' index='0' model-string-length='{{LENGTH}}'>
-    									UEBERSCHRIFT
-    								</autotitle>
-    							</c>
+    							<c style='cs-0'><autotitle level='{{LEVEL}}' index='0' model-string-length='{{LENGTH}}'>UEBERSCHRIFT</autotitle></c>
 						    </p>",
 	),
 	
@@ -93,7 +87,7 @@ $m = array(
         'replacement'   => 'EXTERNALLINK',
         'alias'         => array('internallink', 'internalmedia'), // TODO internalmedia might not work
         'subpattern'    => array('{{TITLE}}'),
-        'template'      => '<c style="cs-0"><hyperlink display-as-link="yes"><display-text><c style="cs-0">{{TITLE}}</c><c style="cs-0"/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>',
+        'template'      => "<c style='cs-0'><hyperlink display-as-link='yes'><display-text><c style='cs-0'>{{TITLE}}</c><c style='cs-0'/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>",
     ),
 
 	// http://mountaindragon.com/html/iso.htm
@@ -101,14 +95,16 @@ $m = array(
 		'replacement'	=> 'DOUBLEQUOTEOPENING',
 		'alias'			=> array(),
 		'subpattern'	=> array(),
-		'template'		=> '<c style="cs-0">"</c>',
+        #'template'      => '&qout;',
+        'template'      => '<c style="cs-0">"</c>',
 	),
 	
 	'doublequoteclosing' => array(
 		'replacement'	=> 'DOUBLEQUOTECLOSING',
 		'alias'			=> array(),
 		'subpattern'	=> array(),
-		'template'		=> '<c style="cs-0">"</c>',
+        #'template'      => '&qout;',
+        'template'      => '<c style="cs-0">"</c>',
 	),
 
 	'singlequoteopening' => array(

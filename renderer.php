@@ -201,6 +201,12 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                     $args[1] = $args[0];
                 }
                 
+                // Link text " -> &qout;
+                if (($name === 'internallink' OR $name === 'externallink') AND empty($args[1])) {
+                    $args[1] = str_replace('"', '&quot;', $args[1]);
+                }
+                
+                // Full URL for internal links
                 if ($name === 'internallink') {
                     $args[0] = DOKU_URL.$args[0];
                 }
@@ -223,7 +229,6 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 // Decrease header level by 1
                 if (in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
                     // $args[0] = (int) $args[0] - 1;
-                    $args[0] = trim($args[0]);
                 }
                 
                 // if not header do replace 
@@ -233,7 +238,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 
                 // Trim headlines
                 if (!in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
-                    $args[0] = trim($args[0]);
+                    $args[0] = $args[0];
                 }
                 
                 // Highlight
@@ -244,8 +249,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 if (preg_match('~&lt;hi ~', $args[0])) {
                     // &lt;hi #ff4500&gt;bunt&lt;/hi&gt;
                     // U = not greedy
-                    $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;(.*)&lt;/hi&gt;~Ui', '</c><c style=\'cs-0\' marker=\'1\'>$1</c><c style=\'cs-0\'>', $args[0]);
+                    $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;(.*)&lt;/hi&gt;~Ui',  '</c><c style=\'cs-0\' marker=\'1\'>$1</c><c style=\'cs-0\'>', $args[0]);
+                    $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;~',                   '</c><c style=\'cs-0\' marker=\'1\'>', $args[0]);
                 }
+                $args[0] = str_replace('&lt;/hi&gt;', '</c><c style=\'cs-0\'>', $args[0]);
                 
        			$string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
                 
@@ -266,9 +273,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        		$doc = str_replace($mapping['subpattern'], $args, $doc);
        	}
        	
-       	if ($tag === 'externallink') {
-       		$doc = urlencode($doc);
-       	}
+        // Why???
+//       	if ($tag === 'externallink') {
+//       		$doc = urlencode($doc);
+//       	}
         
         // Set header length
         if ($tag === 'header' OR (isset($key) AND $key === 'header')) {
@@ -278,7 +286,6 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 $hederLength = strlen($arguments[0]);
             }
             
-            // TODO maybe trim() helps to find the correct algo? Because there is a lot of spaces arround headlines...
             $doc = str_replace('{{LENGTH}}', $hederLength + 10 /* don't know the algorithmus, 10 is an assumption */, $doc);
         }
         
@@ -298,7 +305,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
     
     static function cleanTemplate($xml) {
-    	return preg_replace('~>[\r|\n]\s*<~', '><', trim($xml));
+    	return preg_replace('~>[\r|\n]\s*<~', '><', $xml); // no trim()! trim here deletes valid whitespaces
     }
 	
 	static function xml_errors ($xml) {
