@@ -190,7 +190,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        		break;
        		
        		case 'SINGLE':
-       			// $args[0] = str_replace('"',		'&quot;', 	$args[0]); // seems not to work in headlines
+       			$args[0] = str_replace('"',		'&quot;', 	$args[0]); // seems not to work in headlines
        			$args[0] = str_replace('&', 	'&amp;', 	$args[0]);
        			$args[0] = str_replace('\'',	'&apos;',	$args[0]);
        			$args[0] = str_replace('<', 	'&lt;', 	$args[0]);
