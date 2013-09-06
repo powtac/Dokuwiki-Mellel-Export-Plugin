@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <archive creator='com.redlex.mellel' writer-version='17' compatibility-version='10' style-set-id='ERSS-ce6960fb-19bf-4c5e-aeda-d18ae4e791cc'>
   <pooled-objects>
+      <text-language ref="tl-0" unique-id="de" name="Deutsch" open-type-language-tag="DEU " spelling-language="de"/>
+    <text-language ref="tl-1" unique-id="none" name="Keine" open-type-language-tag="!!!!" spelling-language=""/>
+  
     <section-style ref='ss-0'>
       <name>Standard (einspaltig)</name>
       <unique-id>ERSS-073c6b2c-dbb8-4818-914d-53bb0e0fa65f</unique-id>

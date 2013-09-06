@@ -196,10 +196,15 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
        			$args[0] = str_replace('<', 	'&lt;', 	$args[0]);
        			$args[0] = str_replace('>', 	'&gt;', 	$args[0]);
                 
+                // Add link text if there is none                
+                if (($name === 'internallink' OR $name === 'externallink') AND empty($args[1])) {
+                    $args[1] = $args[0];
+                }
+                
                 if ($name === 'internallink') {
                     $args[0] = DOKU_URL.$args[0];
                 }
-                
+
                 // Replace linebreaks with a single space
                 // <line-break/> ???
                 $args[0] = preg_replace("~ {0,1}\n~", ' ', $args[0]);
@@ -218,6 +223,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 // Decrease header level by 1
                 if (in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
                     // $args[0] = (int) $args[0] - 1;
+                    $args[0] = trim($args[0]);
                 }
                 
                 // if not header do replace 
@@ -225,6 +231,21 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                     $args[0] = str_replace('"', '&quot;',   $args[0]); // This might depend on the way " are used in the XML template!!!
                 }
                 
+                // Trim headlines
+                if (!in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
+                    $args[0] = trim($args[0]);
+                }
+                
+                // Highlight
+                // This is incompatible with the highlight plugin. 
+                // make sure in /lib/plugins/highlight/syntax.php 
+                // "if (strpos($_SERVER['REQUEST_URI'], '_export/mellelexport') !== false) {} else {" is added at the top!
+                // There might be a caching problem! When it does not show the highlighted text try to add "&dummy=123" to the download URL 
+                if (preg_match('~&lt;hi ~', $args[0])) {
+                    // &lt;hi #ff4500&gt;bunt&lt;/hi&gt;
+                    // U = not greedy
+                    $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;(.*)&lt;/hi&gt;~Ui', '</c><c style=\'cs-0\' marker=\'1\'>$1</c><c style=\'cs-0\'>', $args[0]);
+                }
                 
        			$string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
                 
@@ -257,8 +278,13 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 $hederLength = strlen($arguments[0]);
             }
             
+            // TODO maybe trim() helps to find the correct algo? Because there is a lot of spaces arround headlines...
             $doc = str_replace('{{LENGTH}}', $hederLength + 10 /* don't know the algorithmus, 10 is an assumption */, $doc);
         }
+        
+        // General replace for empty tags?
+        $doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $doc);
+                
     
         if (DEBUG) {
             // all args excluded the first one
@@ -272,7 +298,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
     
     static function cleanTemplate($xml) {
-    	return preg_replace('~>[\r|\n]\s*<~', '><', /*trim*/($xml));
+    	return preg_replace('~>[\r|\n]\s*<~', '><', trim($xml));
     }
 	
 	static function xml_errors ($xml) {
