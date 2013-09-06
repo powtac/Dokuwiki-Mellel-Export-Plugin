@@ -826,6 +826,13 @@
     <character-overrides ref='co-4'>
       <line-type value="across"/>
     </character-overrides>
+    <character-overrides ref="co-5">
+      <main-font>
+        <font-family>Courier New</font-family>
+        <font-face>Regular</font-face>
+      </main-font>
+      <ligatures value="no"/>
+    </character-overrides>
     <paragraph-overrides ref="po-0">
       <alignment value="start"/>
     </paragraph-overrides>

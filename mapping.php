@@ -194,5 +194,11 @@ $m = array(
         'template'      => '<c style="cs-0" over="co-4">DELETED</c>',
     ),
 	
-	              
+    
+    'monospace' => array(
+        'replacement'   => 'MONOSPACE',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => '<c style="cs-0" over="co-5">MONOSPACE</c>',
+    ),
 );
