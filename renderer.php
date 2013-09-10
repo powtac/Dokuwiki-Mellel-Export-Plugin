@@ -16,6 +16,30 @@ require_once DOKU_INC . 'inc/html.php';
 
 define('DEBUG', isset($_REQUEST['debug']));
 
+function callback_marker($a) {    
+    //                          Wiki ID     Wiki Intention          Mellel Name     Mellel Number
+    $colorMap['ffff00'] = 1; // ffff00      Yellow  Bible           Banana          1
+    $colorMap['dda0dd'] = 2; // ff0000      Red                     Salmon          2
+    $colorMap['ffa500'] = 3; // ffa500      Orange                  Cantaloupe      3
+    $colorMap['008000'] = 4; // 008000      Green   Rashi           Lime            4
+    $colorMap['6495ed'] = 5; // 6495ed      Blue    Rashbam         Sky             5
+    $colorMap['ff00ff'] = 6; // ff00ff      Pink    Rut Rabba       Light Lavender  6
+    $colorMap['87ceeb'] = 7; // 87ceeb      Gray    Quara           Magnesium       7
+    $colorMap['00ffff'] = 8; // 00ffff      Black   Other Sirection Midnight        8
+    
+    
+    $colorMap['ff0000'] = 2;
+    $colorMap['008080'] = 4;
+    
+    if (isset($colorMap[$a[1]])) {
+        $result = $colorMap[$a[1]];
+    } else {
+        $result = 1;
+    }
+    
+    return 'marker=\''.$result.'\'';
+}
+
 class renderer_plugin_mellelexport extends Doku_Renderer {
     public $info = array(
         'cache' => false, // may the rendered result cached?
@@ -27,7 +51,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     function getInfo() {
         return confToHash(dirname(__FILE__).'/plugin.info.txt');
     }
-	
+    
     function getFormat() {
         return 'mellelexport';
     }
@@ -37,25 +61,34 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
     
     function renderer_plugin_mellelexport() {
-    	require_once dirname(__FILE__).'/mapping.php';
-    	$this->conf['m'] = $m;
+        require_once dirname(__FILE__).'/mapping.php';
+        $this->conf['m'] = $m;
+        
+        if (in_array('highlight', plugin_list())) {
+            plugin_disable('highlight');
+            define('_MELLE_PLUGIN_HIGHLIGHT_DISABLED', TRUE);
+        }
     }
 
     function document_start() {
         global $ID;
 
         parent::document_start();
-
+        
+        if (in_array('highlight', plugin_list())) {
+            die('highlight Plugin not deactivated, this might lead to problems. Please deactivate this plugin in the Admin section.');   
+        }
+        
         // If older or equal to 2007-06-26, we need to disable caching
         $dw_version = preg_replace('/[^\d]/', '', getversion());
         if (version_compare($dw_version, "20070626", "<=")) {
             $this->info["cache"] = false;
         }
-		
-		$contentType 		= class_exists('ZipArchive') ? 'application/zip' 	: 'text/xml';
-		$contentFileName 	= class_exists('ZipArchive') ? noNS($ID).'.mellel' 	: 'main.xml';
-		
-		
+        
+        $contentType        = class_exists('ZipArchive') ? 'application/zip'    : 'text/xml';
+        $contentFileName    = class_exists('ZipArchive') ? noNS($ID).'.mellel'  : 'main.xml';
+        
+        
         // send the content type header, new method after 2007-06-26 (handles caching)
         if (!DEBUG) {
             if (version_compare($dw_version, "20070626")) {
@@ -64,7 +97,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                     'Content-Type' => $contentType,
                     'Content-Disposition' => 'attachment; filename="'.$contentFileName.'";',
                 );
-               	p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
+                p_set_metadata($ID, array('format' => array('mellelexport' => $headers) ));
             } else { 
                 // older method
                 header('Content-Type: '.$contentType);
@@ -79,122 +112,126 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
 
     function document_end() {
-		global $ID, $INFO;
+        global $ID, $INFO;
         
 //        echo '<pre>';
 //        var_dump($INFO);
 //        exit;
-		
-		$template = file_get_contents(dirname(__FILE__).'/template.txt');
-		
+        
+        $template = file_get_contents(dirname(__FILE__).'/template.txt');
+        
         $this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
         
         
         $this->doc = str_replace('{{WIKIPAGE}}', str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
         $this->doc = str_replace('{{WIKIDATE}}', date('d.m.Y', $INFO['meta']['date']['created']).' by '.$INFO['meta']['last_change']['user'], $this->doc);
-       	
-       	self::xml_errors($this->doc);
+        
+        self::xml_errors($this->doc);
         $this->doc = self::remove_whitespace($this->doc);
-       	
-		$zip = !DEBUG;
-		
-		if ($zip AND class_exists('ZipArchive')) {
-			
-			$zip = new ZipArchive();
-			
-			$tmpZipFile = tempnam(sys_get_temp_dir().'/', 'aaa_inge_wiki_2_mellel_render_');
-			$res = $zip->open($tmpZipFile, ZipArchive::CREATE);
-			if ($res === TRUE) {
-			    $zip->addFromString('main.xml', $this->doc);
-			    $zip->addFromString('.redlex', '');
-			    $zip->close();
-			    
-			    $this->doc = file_get_contents($tmpZipFile);
-			    @unlink($tmpZipFile);
-			}
-		}
         
-		if (DEBUG) {
-            $this->doc = htmlentities($this->doc);
-        }
+        $zip = !DEBUG;
         
-		#echo '<pre>';
-		#header('Content-Type: text/xml');
-        #echo '<table>';
-		#echo $this->doc; exit;
-        #echo '</table>';
-        
-        if ($this->opened != 0) {
-        	die('Wrong number of opened and closed tags!');
+        if ($zip AND class_exists('ZipArchive')) {
+            
+            $zip = new ZipArchive();
+            
+            $tmpZipFile = tempnam(sys_get_temp_dir().'/', 'aaa_inge_wiki_2_mellel_render_');
+            $res = $zip->open($tmpZipFile, ZipArchive::CREATE);
+            if ($res === TRUE) {
+                $zip->addFromString('main.xml', $this->doc);
+                $zip->addFromString('.redlex', '');
+                $zip->close();
+                
+                $this->doc = file_get_contents($tmpZipFile);
+                @unlink($tmpZipFile);
+            }
         }
         
         if (DEBUG) {
-        	exit;
+            $this->doc = htmlentities($this->doc);
         }
+        
+        #echo '<pre>';
+        #header('Content-Type: text/xml');
+        #echo '<table>';
+        #echo $this->doc; exit;
+        #echo '</table>';
+        
+        if (defined(_MELLE_PLUGIN_HIGHLIGHT_DISABLED) AND _MELLE_PLUGIN_HIGHLIGHT_DISABLED) {
+            plugin_enable('highlight');
+        }
+        
+        if ($this->opened != 0) {
+            die('Wrong number of opened and closed tags!');
+        }        
+        
+        if (DEBUG) {
+            exit;
+        }        
     }
     
     function __call($name, $arguments) {
                 
-       	$m 		= $this->conf['m'];
-		$args 	= func_get_args();
+        $m      = $this->conf['m'];
+        $args   = func_get_args();
 
-		array_shift($args);
-		$args	= $args[0];
-       	
-       	if (substr($name, -5) === '_open') {
-       		$type 	= 'OPEN';
-       		$multi 	= true;
+        array_shift($args);
+        $args   = $args[0];
+        
+        if (substr($name, -5) === '_open') {
+            $type   = 'OPEN';
+            $multi  = true;
             $this->opened++;
-       	} elseif (substr($name, -6) === '_close') {
-       		$type 	= 'CLOSE';
-       		$multi 	= true;
+        } elseif (substr($name, -6) === '_close') {
+            $type   = 'CLOSE';
+            $multi  = true;
             $this->opened--;
-       	} else {
-       		$type = 'SINGLE';
-       		$multi 	= false;
-       	}
-       	
-       	
-       	$tag = str_replace(array('_open', '_close'), '', $name); // not nice but short
+        } else {
+            $type = 'SINGLE';
+            $multi  = false;
+        }
+        
+        
+        $tag = str_replace(array('_open', '_close'), '', $name); // not nice but short
 
 
-       	if (isset($m[$tag])) {
-       		$mapping = $m[$tag];
-       	} else {
-       		foreach ($m as $key => $value) {
-       			if (in_array($tag, $value['alias'])) {
-       				$mapping = $m[$key];
-       				break;
-       			}
-       		}
-       	}
-       	
+        if (isset($m[$tag])) {
+            $mapping = $m[$tag];
+        } else {
+            foreach ($m as $key => $value) {
+                if (in_array($tag, $value['alias'])) {
+                    $mapping = $m[$key];
+                    break;
+                }
+            }
+        }
+        
 
-       	if (!is_array($mapping)) {
-       		echo '<span style="color:red; display:block">No mapping found for function "'.$name.'()" and tag "'.$tag.'"</span>'.PHP_EOL;
-       		$this->doc = 'NO MAPPING FOUND'.$this->doc;
-       		exit;
-       	}
-       	
-       	// Get the corresponding part of the template
-		$templateParts = explode($mapping['replacement'], $mapping['template']);
-		
-		
-       	switch ($type) {
-       		case 'OPEN':
-       			$doc = self::cleanTemplate($templateParts[0]);
-   			break;
-   			
-       		case 'CLOSE':
-       			$doc = self::cleanTemplate($templateParts[1]);
-       		break;
-       		
-       		case 'SINGLE':
-       			// $args[0] = str_replace('"',		'&quot;', 	$args[0]); // seems not to work in headlines
-       			$args[0] = str_replace('&', 	'&amp;', 	$args[0]);
-       			$args[0] = str_replace('\'',	'&apos;',	$args[0]);
-       			$args[0] = str_replace('<', 	'&lt;', 	$args[0]);
-       			$args[0] = str_replace('>', 	'&gt;', 	$args[0]);
+        if (!is_array($mapping)) {
+            echo '<span style="color:red; display:block">No mapping found for function "'.$name.'()" and tag "'.$tag.'"</span>'.PHP_EOL;
+            $this->doc = 'NO MAPPING FOUND'.$this->doc;
+            exit;
+        }
+        
+        // Get the corresponding part of the template
+        $templateParts = explode($mapping['replacement'], $mapping['template']);
+        
+        
+        switch ($type) {
+            case 'OPEN':
+                $doc = self::cleanTemplate($templateParts[0]);
+            break;
+            
+            case 'CLOSE':
+                $doc = self::cleanTemplate($templateParts[1]);
+            break;
+            
+            case 'SINGLE':
+                // $args[0] = str_replace('"',      '&quot;',   $args[0]); // seems not to work in headlines
+                $args[0] = str_replace('&',     '&amp;',    $args[0]);
+                $args[0] = str_replace('\'',    '&apos;',   $args[0]);
+                $args[0] = str_replace('<',     '&lt;',     $args[0]);
+                $args[0] = str_replace('>',     '&gt;',     $args[0]);
                 
                 // Add link text if there is none                
                 if (($name === 'internallink' OR $name === 'externallink') AND empty($args[1])) {
@@ -216,7 +253,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 $args[0] = preg_replace("~ {0,1}\n~", ' ', $args[0]);
                 
                 // Geschützte Leerzeichen für "S. 1234"
-                $args[0] = preg_replace('~\sS\.( {1})\d+~', '<dir-break-space/>', $args[0]);
+                $args[0] = preg_replace('~\sS\.([ ]{1})\d+~', '<dir-break-space/>', $args[0]);
                 
                 // Geviertstrich und Halbgeviertstrich
                 // TODO utf8 codes possible?
@@ -249,34 +286,38 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 if (preg_match('~&lt;hi ~', $args[0])) {
                     // &lt;hi #ff4500&gt;bunt&lt;/hi&gt;
                     // U = not greedy
-                    $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;(.*)&lt;/hi&gt;~Ui',  '</c><c style=\'cs-0\' marker=\'1\'>$1</c><c style=\'cs-0\'>', $args[0]);
-                    $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;~',                   '</c><c style=\'cs-0\' marker=\'1\'>', $args[0]);
+                    $args[0] = preg_replace('~&lt;hi #([a-zA-Z0-9]+)&gt;(.*)&lt;/hi&gt;~Ui',  '</c><c style=\'cs-0\' marker=\'$1\'>$2 - $1</c><c style=\'cs-0\'>', $args[0]);
+                    // $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;~',                   '</c><c style=\'cs-0\' marker=\'1\'>', $args[0]);
+                    
+                    // Replace marker with Mellel marker ids
+                    $args[0] = preg_replace_callback('~marker=\'([a-zA-Z0-9]+)\'~', 'callback_marker', $args[0]); 
                 }
+                
                 $args[0] = str_replace('&lt;/hi&gt;', '</c><c style=\'cs-0\'>', $args[0]);
                 
-       			$string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
+                $string = str_replace($mapping['replacement'], $args[0], self::cleanTemplate($mapping['template']));
                 
                 $doc = $string;
-       		break;
-       		
-       		default:
-       			die('No type set');
-       	}
-       	
-       	
-       	// Check the given arguments and parse additional information
-       	if (!$multi) {
-   			array_shift($args); // remove the first entry
-       	}
-       	
-       	if (isset($args)) {
-       		$doc = str_replace($mapping['subpattern'], $args, $doc);
-       	}
-       	
+            break;
+            
+            default:
+                die('No type set');
+        }
+        
+        
+        // Check the given arguments and parse additional information
+        if (!$multi) {
+            array_shift($args); // remove the first entry
+        }
+        
+        if (isset($args)) {
+            $doc = str_replace($mapping['subpattern'], $args, $doc);
+        }
+        
         // Why???
-//       	if ($tag === 'externallink') {
-//       		$doc = urlencode($doc);
-//       	}
+//          if ($tag === 'externallink') {
+//              $doc = urlencode($doc);
+//          }
         
         // Set header length
         if ($tag === 'header' OR (isset($key) AND $key === 'header')) {
@@ -289,6 +330,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             $doc = str_replace('{{LENGTH}}', $hederLength + 10 /* don't know the algorithmus, 10 is an assumption */, $doc);
         }
         
+        // :?: --> rendered as a yellow questionmark image
+        $doc = str_replace(':?:', '<c style=\'cs-0\' marker=\'1\'>?</c>', $doc);
+        
         // General replace for empty tags?
         $doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $doc);
                 
@@ -298,34 +342,34 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             $tmp_args = func_get_args();
             array_shift($tmp_args);
             $tmp_args = $tmp_args[0];
-           	echo '<tr><td></td><td style="vertical-align: top;">'.$tag.'</td><td></td><td style="vertical-align: top;">'.$type.'</td><td>&nbsp;&nbsp;</td><td style="vertical-align: top;">'.var_export($tmp_args, 1).'</td><td style="font-family: monospace;">'.trim(htmlentities($doc, NULL, 'UTF-8')).'</td></tr>';
+            echo '<tr><td></td><td style="vertical-align: top;">'.$tag.'</td><td></td><td style="vertical-align: top;">'.$type.'</td><td>&nbsp;&nbsp;</td><td style="vertical-align: top;">'.var_export($tmp_args, 1).'</td><td style="font-family: monospace;">'.trim(htmlentities($doc, NULL, 'UTF-8')).'</td></tr>';
         }
         
         $this->doc .= $doc;
     }
     
     static function cleanTemplate($xml) {
-    	return preg_replace('~>[\r|\n]\s*<~', '><', $xml); // no trim()! trim here deletes valid whitespaces
+        return preg_replace('~>[\r\n]\s*<~', '><', $xml); // no trim()! trim here deletes valid whitespaces
     }
-	
-	static function xml_errors ($xml) {
-	    libxml_use_internal_errors(true);
-	    $doc = new DOMDocument('1.0', 'utf-8');
-	    $doc->loadXML( $xml );
-	    $errors = libxml_get_errors();
-	    
-	    if (count($errors) > 0) {
-	    	echo 'XML Error:';
-	    	echo '<pre style="border: 1px solid red; border-radius:2px; padding:5px">';
-	    	var_dump($errors);
-	    	echo '</pre>';
-	    	echo 'Plain XML:';
-	    	echo '<pre style="border: 1px solid black; border-radius:2px; padding:5px">';
-	    	var_dump(htmlentities($xml));
-	    	echo '</pre>';
-	    	exit;
-	    }
-	}
+    
+    static function xml_errors ($xml) {
+        libxml_use_internal_errors(true);
+        $doc = new DOMDocument('1.0', 'utf-8');
+        $doc->loadXML( $xml );
+        $errors = libxml_get_errors();
+        
+        if (count($errors) > 0) {
+            echo 'XML Error:';
+            echo '<pre style="border: 1px solid red; border-radius:2px; padding:5px">';
+            var_dump($errors);
+            echo '</pre>';
+            echo 'Plain XML:';
+            echo '<pre style="border: 1px solid black; border-radius:2px; padding:5px">';
+            var_dump(htmlentities($xml));
+            echo '</pre>';
+            exit;
+        }
+    }
     
     static function remove_whitespace($xml) {
         libxml_use_internal_errors(true);
@@ -337,10 +381,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         
         return self::cleanTemplate($doc->saveXML());
     } 
-		
-	
-	
-	// Dummy mappings of method to __call()
+        
+    
+    
+    // Dummy mappings of method to __call()
     function render_TOC() { return ''; }
 
     function toc_additem($id, $text, $level) {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
@@ -354,15 +398,15 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     function cdata($text) {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
     function p_open() {
-    	#var_dump(func_get_args());
-    	
-    	call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));
-    	
-    	
-	}
+        #var_dump(func_get_args());
+        
+        call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));
+        
+        
+    }
 
     function p_close() {#var_dump(func_get_args());
-    	call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
+        call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
     function linebreak() {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
@@ -373,10 +417,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     function strong_close() {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
     function emphasis_open() {
-    	
-    	#var_dump(__FUNCTION__);
-    	
-    	call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
+        
+        #var_dump(__FUNCTION__);
+        
+        call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 
     function emphasis_close() {call_user_func_array(array($this, '__call'), array(__FUNCTION__, func_get_args()));}
 

@@ -190,11 +190,39 @@ $m = array(
         'template'      => '<c style="cs-0" over="co-4">DELETED</c>',
     ),
 	
-    
     'monospace' => array(
         'replacement'   => 'MONOSPACE',
         'alias'         => array(),
         'subpattern'    => array(),
         'template'      => '<c style="cs-0" over="co-5">MONOSPACE</c>',
+    ),
+    
+    'smiley' => array(
+        'replacement'   => 'SMILEY',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => 'SMILEY',
+    ),
+    
+    'table' => array(
+        'replacement'   => 'TABLE',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => 'TABLE',
+    ),
+  
+    'tablerow' => array(
+        'replacement'   => 'TABLEROW',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => "<p style='ps-0' dir='ltr'>TABLEROW</p>",
+    ),
+    
+    'tablecell' => array(
+        'replacement'   => 'TABLECELL',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => '<c style="cs-0"> | </c>TABLECELL<c style="cs-0"> | </c>',
+//        'template'      => 'TABLECELL ',
     ),
 );
