@@ -12,7 +12,7 @@ if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'syntax.php');
 
 class syntax_plugin_mellelexport extends DokuWiki_Syntax_Plugin {
-
+    
     /**
      * return some info
      */
@@ -62,10 +62,12 @@ class syntax_plugin_mellelexport extends DokuWiki_Syntax_Plugin {
     function render($format, &$renderer, $data) {
         global $ID, $REV;
         if (!$data) { // Export button
-            if($format != 'xhtml') return false;
-	            $renderer->doc .= '<a href="'.exportlink($ID, 'mellelexport', ($REV != '' ? 'rev='.$REV : '')).'?purge=1&dummy='.microtime(true).'" title="Export page to Redit Mellel format">';
-	            $renderer->doc .= '<img src="'.DOKU_BASE.'lib/plugins/mellelexport/MellelDocument.png" align="right" alt="Export page to Redit Mellel format" width="48" height="48" />';
-	            $renderer->doc .= '</a>';
+            if($format != 'xhtml') { 
+                return false;
+            }
+            $renderer->doc .= '<a href="'.exportlink($ID, 'mellelexport', ($REV != '' ? 'rev='.$REV : '')).'?purge=1&dummy='.microtime(true).'" title="Export page to Redit Mellel format">';
+            $renderer->doc .= '<img src="'.DOKU_BASE.'lib/plugins/mellelexport/MellelDocument.png" align="right" alt="Export page to Redit Mellel format" width="48" height="48" />';
+            $renderer->doc .= '</a>';
             return true;
         } else { // Extended info
             list($info_type, $info_value) = $data;

@@ -60,25 +60,21 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         return false;
     }
     
-    function renderer_plugin_mellelexport() {
+    function __construct() {
         require_once dirname(__FILE__).'/mapping.php';
         $this->conf['m'] = $m;
-        
-        if (in_array('highlight', plugin_list())) {
-            plugin_disable('highlight');
-            define('_MELLE_PLUGIN_HIGHLIGHT_DISABLED', TRUE);
-        }
     }
 
     function document_start() {
-        global $ID;
-
-        parent::document_start();
-        
+        plugin_disable('highlight');
         if (in_array('highlight', plugin_list())) {
-            die('highlight Plugin not deactivated, this might lead to problems. Please deactivate this plugin in the Admin section.');   
+            die('ERROR: highlight loaded 1');   
         }
+
+        global $ID;
         
+        parent::document_start();
+               
         // If older or equal to 2007-06-26, we need to disable caching
         $dw_version = preg_replace('/[^\d]/', '', getversion());
         if (version_compare($dw_version, "20070626", "<=")) {
@@ -87,7 +83,6 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         
         $contentType        = class_exists('ZipArchive') ? 'application/zip'    : 'text/xml';
         $contentFileName    = class_exists('ZipArchive') ? noNS($ID).'.mellel'  : 'main.xml';
-        
         
         // send the content type header, new method after 2007-06-26 (handles caching)
         if (!DEBUG) {
@@ -112,6 +107,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
 
     function document_end() {
+        if (in_array('highlight', plugin_list())) {
+            die('ERROR: highlight loaded '.__FUNCTION__);
+        }
         global $ID, $INFO;
         
 //        echo '<pre>';
@@ -157,9 +155,8 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         #echo $this->doc; exit;
         #echo '</table>';
         
-        if (defined(_MELLE_PLUGIN_HIGHLIGHT_DISABLED) AND _MELLE_PLUGIN_HIGHLIGHT_DISABLED) {
-            plugin_enable('highlight');
-        }
+        // This does not work properly
+        #plugin_enable('highlight');
         
         if ($this->opened != 0) {
             die('Wrong number of opened and closed tags!');
@@ -171,7 +168,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
     
     function __call($name, $arguments) {
-                
+        if (in_array('highlight', plugin_list())) {
+            die('ERROR: highlight loaded');
+        }
+        
+        
         $m      = $this->conf['m'];
         $args   = func_get_args();
 
