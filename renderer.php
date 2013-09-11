@@ -287,7 +287,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 if (preg_match('~&lt;hi ~', $args[0])) {
                     // &lt;hi #ff4500&gt;bunt&lt;/hi&gt;
                     // U = not greedy
-                    $args[0] = preg_replace('~&lt;hi #([a-zA-Z0-9]+)&gt;(.*)&lt;/hi&gt;~Ui',  '</c><c style=\'cs-0\' marker=\'$1\'>$2 - $1</c><c style=\'cs-0\'>', $args[0]);
+                    $args[0] = preg_replace('~&lt;hi #([a-zA-Z0-9]+)&gt;(.*)&lt;/hi&gt;~Ui',  '</c><c style=\'cs-0\' marker=\'$1\'>$2</c><c style=\'cs-0\'>', $args[0]);
                     // $args[0] = preg_replace('~&lt;hi #[a-zA-Z0-9]+&gt;~',                   '</c><c style=\'cs-0\' marker=\'1\'>', $args[0]);
                     
                     // Replace marker with Mellel marker ids
