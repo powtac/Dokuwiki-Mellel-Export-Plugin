@@ -58,7 +58,7 @@ $m = array(
 		'alias'			=> array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
 		'subpattern'	=> array('{{LEVEL}}'),
 		'template'		=> "<p style='ps-0' dir='ltr'>
-    							<c style='cs-0'><autotitle level='{{LEVEL}}' index='0' model-string-length='{{LENGTH}}'><c style='cs-0' lang='tl-0'>UEBERSCHRIFT</c></autotitle></c>
+    							<c style='cs-1'><autotitle level='{{LEVEL}}' index='0' model-string-length='{{LENGTH}}'><c style='cs-1' lang='tl-0'>UEBERSCHRIFT</c></autotitle></c>
 						    </p>",
 	),
 	

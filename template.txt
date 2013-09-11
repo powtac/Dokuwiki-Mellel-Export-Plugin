@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <archive creator='com.redlex.mellel' writer-version='17' compatibility-version='10' style-set-id='ERSS-ce6960fb-19bf-4c5e-aeda-d18ae4e791cc'>
   <pooled-objects>
-      <text-language ref="tl-0" unique-id="de" name="Deutsch" open-type-language-tag="DEU " spelling-language="de"/>
-    <text-language ref="tl-1" unique-id="none" name="Keine" open-type-language-tag="!!!!" spelling-language=""/>
+      <text-language ref='tl-0' unique-id='de' name='Deutsch' open-type-language-tag='DEU ' spelling-language='de'/>
+    <text-language ref='tl-1' unique-id='none' name='Keine' open-type-language-tag='!!!!' spelling-language=''/>
   
     <section-style ref='ss-0'>
       <name>Standard (einspaltig)</name>
@@ -827,17 +827,17 @@
       <line-type value='under'/>
     </character-overrides>
     <character-overrides ref='co-4'>
-      <line-type value="across"/>
+      <line-type value='across'/>
     </character-overrides>
-    <character-overrides ref="co-5">
+    <character-overrides ref='co-5'>
       <main-font>
         <font-family>Courier New</font-family>
         <font-face>Regular</font-face>
       </main-font>
-      <ligatures value="no"/>
+      <ligatures value='no'/>
     </character-overrides>
-    <paragraph-overrides ref="po-0">
-      <alignment value="start"/>
+    <paragraph-overrides ref='po-0'>
+      <alignment value='start'/>
     </paragraph-overrides>
     <paragraph-style ref='ps-0'>
       <name>Normal</name>
