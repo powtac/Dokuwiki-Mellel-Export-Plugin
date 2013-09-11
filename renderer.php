@@ -248,6 +248,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 if ($name === 'internallink') {
                     $args[0] = DOKU_URL.$args[0];
                 }
+                
+                // Code linebreaks
+                if ($name === 'code') {
+                    $args[0] = str_replace("\n", '<dir-break-space/>', $args[0]);
+                }
 
                 // Replace linebreaks with a single space
                 // <line-break/> ???
@@ -255,7 +260,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 
                 // Geschützte Leerzeichen für "S. 1234"
                 $args[0] = preg_replace('~\sS\.([ ]{1})\d+~', '<dir-break-space/>', $args[0]);
-                
+                    
                 // Geviertstrich und Halbgeviertstrich
                 // TODO utf8 codes possible?
                 // TODO longer lines like "hr" should be rendered first to not confuse this

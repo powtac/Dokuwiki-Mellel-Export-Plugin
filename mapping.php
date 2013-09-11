@@ -201,7 +201,7 @@ $m = array(
         'replacement'   => 'CODE',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => '<p style="ps-0" dir="ltr"><c style="cs-0" over="co-5">CODE</c></p>',
+        'template'      => '<p  style="ps-0" dir="ltr"><c style="cs-0" lang="tl-0" over="co-5">CODE</c></p>',
     ),
     
     'smiley' => array(
