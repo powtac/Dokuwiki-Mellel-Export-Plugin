@@ -214,6 +214,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             exit;
         }
         
+        // Use different template when p tag (paragraph) is open
+        if (($this->pTagOpen OR $this->sectionTagOpen) AND isset($mapping['template_p_open'])) {
+            $mapping['template'] = $mapping['template_p_open'];
+        }
+        
         // Get the corresponding part of the template
         $templateParts = explode($mapping['replacement'], $mapping['template']);
         
@@ -352,6 +357,24 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         }
         
         $this->doc .= $doc;
+        
+        $this->lastTag = $name;
+        
+        if ($tag == 'p') {
+            if ($type == 'OPEN') {
+                $this->pTagOpen = TRUE;
+            } else {
+                $this->pTagOpen = FALSE;
+            }
+        }
+        
+        if ($tag == 'section') {
+            if ($type == 'OPEN') {
+                $this->sectionTagOpen = TRUE;
+            } else {
+                $this->sectionTagOpen = FALSE;
+            }
+        }
     }
     
     static function cleanTemplate($xml) {
