@@ -332,7 +332,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         }
         
         // :?: --> rendered as a yellow questionmark image
-        $doc = str_replace(':?:', '<c style=\'cs-0\' marker=\'1\'>?</c>', $doc);
+        $doc = str_replace(array(':?:'), array('<c style=\'cs-0\' marker=\'1\'>?</c>'), $doc);
         
         // General replace for empty tags?
         $doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $doc);

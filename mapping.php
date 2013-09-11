@@ -197,6 +197,13 @@ $m = array(
         'template'      => '<c style="cs-0" over="co-5">MONOSPACE</c>',
     ),
     
+    'code' => array(
+        'replacement'   => 'CODE',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => '<p style="ps-0" dir="ltr"><c style="cs-0" over="co-5">CODE</c></p>',
+    ),
+    
     'smiley' => array(
         'replacement'   => 'SMILEY',
         'alias'         => array(),
