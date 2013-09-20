@@ -112,9 +112,20 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         }
         global $ID, $INFO;
         
-//        echo '<pre>';
-//        var_dump($INFO);
-//        exit;
+        // Global replacements
+        
+        // General replace for empty tags?
+        $this->doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $this->doc);
+        $this->doc = str_replace(array('<p style=\'ps-0\' dir=\'ltr\'></p>', '<c style="cs-0" dir="ltr"></c>', '<c style="\'cs-0\'" dir="\'ltr\'"></c>', "<c style=\"\'cs-0\'\" dir=\"'ltr'\"></c>"), '', $this->doc);
+        $this->doc = str_replace('<p style=\'ps-0\' dir=\'ltr\'></p>', '', $this->doc);
+        
+        
+        if (DEBUG) {
+            // $this->doc = self::remove_whitespace('<?xml version="1.0" encoding="utf-8" ? >'.$this->doc); // does not work. 
+            $this->doc = htmlentities($this->doc);
+            echo '</table>';
+            echo '<pre>'.$this->doc.'</pre>';
+        }
         
         $template = file_get_contents(dirname(__FILE__).'/template.txt');
         
@@ -126,9 +137,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         
         self::xml_errors($this->doc);
         $this->doc = self::remove_whitespace($this->doc);
-        
+
         $zip = !DEBUG;
-        
+
         if ($zip AND class_exists('ZipArchive')) {
             
             $zip = new ZipArchive();
@@ -145,26 +156,16 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             }
         }
         
-        if (DEBUG) {
-            $this->doc = htmlentities($this->doc);
-        }
-        
-        #echo '<pre>';
-        #header('Content-Type: text/xml');
-        #echo '<table>';
-        #echo $this->doc; exit;
-        #echo '</table>';
-        
         // This does not work properly
         #plugin_enable('highlight');
         
         if ($this->opened != 0) {
             die('Wrong number of opened and closed tags!');
-        }        
+        }
         
         if (DEBUG) {
-            exit;
-        }        
+            exit;   
+        }
     }
     
     function __call($name, $arguments) {
@@ -344,9 +345,6 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         // :?: --> rendered as a yellow questionmark image
         $doc = str_replace(array(':?:'), array('<c style=\'cs-0\' marker=\'1\'>?</c>'), $doc);
         
-        // General replace for empty tags?
-        $doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $doc);
-                
     
         if (DEBUG) {
             // all args excluded the first one
@@ -405,8 +403,13 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         $doc = new DOMDocument('1.0', 'utf-8');
         $doc->loadXML( $xml );
         
-        $doc->preserveWhiteSpace    = FALSE;
-        $doc->formatOutput          = FALSE;
+        if (!DEBUG) {
+            $doc->preserveWhiteSpace    = FALSE;
+            $doc->formatOutput          = FALSE;
+        } else {
+            $doc->preserveWhiteSpace    = FALSE;
+            $doc->formatOutput          = TRUE;   
+        }
         
         return self::cleanTemplate($doc->saveXML());
     } 
