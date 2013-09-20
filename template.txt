@@ -212,76 +212,65 @@
         </variation>
       </variations>
     </character-style>
-    <character-style ref='cs-2'>
-            <name>Kopf-/Fußzeile</name>
-      <shortcut/>
-      <unique-id>ERCS-c2de1612-30bd-4a51-ade3-8da512071a54</unique-id>
+    <character-style ref="cs-2">
+      <name>Unterüberschrift</name>
+      <shortcut>5</shortcut>
+      <unique-id>ERCS-e82a0947-ba65-4c67-b51f-112c168a1750</unique-id>
       <variations>
         <variation>
-          <position value='none'/>
-          <line-stroke-weight type='relative' value='100'/>
-          <case-type value='none'/>
-          <char-color type='calibrated-white' white='0' alpha='1'/>
-          <stroke-weight type='relative' value='100'/>
-          <background-color type='calibrated-white' white='1' alpha='1'/>
-          <line-stroke-color type='calibrated-white' white='0' alpha='1'/>
-          <direction-override value='default'/>
-          <stroke-color type='calibrated-white' white='0' alpha='1'/>
-          <secondary-font-script value='none'/>
-          <main-font>
-            <font-family>Helvetica Neue</font-family>
-            <font-face>Regular</font-face>
-          </main-font>
-          <language value='None'/>
-          <secondary-font-scale value='100'/>
-          <opentype/>
-          <secondary-font>
-            <font-family>Lucida Grande</font-family>
-            <font-face>Regular</font-face>
-          </secondary-font>
-          <fill-type value='solid'/>
-          <line-stroke-type value='none'/>
-          <ligatures value='yes'/>
-          <line-type value='none'/>
-          <baseline-shift value='0'/>
-          <kashida value='yes'/>
-          <main-font-size value='11'/>
-          <background-type value='none'/>
-          <stroke-type value='none'/>
-        </variation>
-        <variation>
+          <kashida value="yes"/>
+          <line-type value="none"/>
+          <line-stroke-weight type="relative" value="100"/>
+          <case-type value="none"/>
+          <char-color type="calibrated-white" white="0" alpha="1"/>
+          <stroke-weight type="relative" value="100"/>
+          <background-color type="calibrated-white" white="1" alpha="1"/>
+          <line-stroke-color type="calibrated-white" white="0" alpha="1"/>
+          <direction-override value="default"/>
+          <stroke-color type="calibrated-white" white="0" alpha="1"/>
+          <secondary-font-script value="none"/>
           <main-font>
             <font-family>Helvetica Neue</font-family>
             <font-face>Bold</font-face>
           </main-font>
+          <language value="None"/>
+          <secondary-font-scale value="100"/>
+          <lang>tl-1</lang>
+          <secondary-font>
+            <font-family>Lucida Grande</font-family>
+            <font-face>Regular</font-face>
+          </secondary-font>
+          <background-type value="none"/>
+          <line-stroke-type value="none"/>
+          <ligatures value="yes"/>
+          <main-font-size value="13"/>
+          <fill-type value="solid"/>
+          <position value="none"/>
+          <opentype/>
+          <baseline-shift value="0"/>
+          <stroke-type value="none"/>
         </variation>
-        <variation>
-          <main-font>
-            <font-family>Helvetica Neue</font-family>
-            <font-face>Italic</font-face>
-          </main-font>
-        </variation>
+        <variation/>
         <variation>
           <main-font>
             <font-family>Helvetica Neue</font-family>
             <font-face>Bold Italic</font-face>
           </main-font>
         </variation>
+        <variation/>
         <variation>
-          <line-type value='under'/>
+          <line-type value="under"/>
+          <char-color type="calibrated-rgb" red="0.69683253765106201" green="0.024756733328104019" blue="0.016739340499043465" alpha="1"/>
+        </variation>
+        <variation/>
+        <variation>
+          <main-font-size value="12"/>
         </variation>
         <variation>
-          <line-type value='under'/>
-          <char-color type='calibrated-rgb' red='0' green='0' blue='0.9960780143737793' alpha='1'/>
-        </variation>
-        <variation>
-          <main-font-size value='10'/>
-        </variation>
-        <variation>
-          <main-font-size value='10'/>
+          <main-font-size value="12"/>
           <main-font>
             <font-family>Helvetica Neue</font-family>
-            <font-face>Italic</font-face>
+            <font-face>Bold Italic</font-face>
           </main-font>
         </variation>
       </variations>
@@ -906,7 +895,7 @@
       <space-above value='0'/>
       <space-below value='0'/>
       <space-above-top value='yes'/>
-      <associated-character-style>cs-5</associated-character-style>
+      <associated-character-style>cs-2</associated-character-style>
       <next-style-name>Regular</next-style-name>
       <keep-lines-together value='no'/>
       <keep-line-together-type value='all'/>
@@ -990,7 +979,7 @@
       <space-above value='0'/>
       <space-below value='0'/>
       <space-above-top value='yes'/>
-      <associated-character-style>cs-2</associated-character-style>
+      <associated-character-style>cs-5</associated-character-style>
       <keep-lines-together value='no'/>
       <keep-line-together-type value='all'/>
       <keep-first-lines-count value='1'/>
