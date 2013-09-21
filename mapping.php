@@ -53,27 +53,36 @@ $m = array(
         'template'      => "<c style='cs-0'>CDATA</c>",
     ),
     
+    
     'header' => array(
         'replacement'   => 'UEBERSCHRIFT',
         'alias'         => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
         'subpattern'    => array('{{LEVEL}}'),
-        'template'      => "<p style='ps-1' dir='ltr'>
-                                <c style='cs-2'><autotitle level='{{LEVEL}}' index='0' model-string-length='{{LENGTH}}'><c style='cs-2' lang='tl-0'>UEBERSCHRIFT</c></autotitle></c>
-                            </p>",
+        'template'      => '<p style="ps-6" dir="ltr">
+                              <c style="cs-7" lang="tl-0">
+                                <autotitle level="{{LEVEL}}" index="0" model-string-length="{{LENGTH}}">
+                                  <c style="cs-7" lang="tl-0">UEBERSCHRIFT</c>
+                                </autotitle>
+                              </c>
+                            </p>',
+        'template_level_0' => '<p style="ps-1" dir="ltr">
+                                  <c style="cs-1" lang="tl-0">
+                                      <autotitle level="0" index="0" model-string-length="21">
+                                          <c style="cs-1" lang="tl-0">UEBERSCHRIFT</c>
+                                      </autotitle> 
+                                  </c>
+                                </p>',
     ),
     
     'footnote' => array(
         'replacement'   => 'Fussnote',
         'alias'         => array(),
-        'subpattern'    => array('{{NOTE}}'),
-//        'template'      => "<c style='cs-3'>{{NOTE}}<note stream='nsm-0'>
-//                              <p style='ps-0' dir='ltr'>
-//                                <c style='cs-0' lang='tl-0'>Fussnote</c>
-//                              </p>
-//                              </note>
-//                            </c>",
-                            
-        'template'      => '<c style="cs-0" lang="tl-0">{{NOTE}}<note stream="nsm-0"><p style="ps-5" dir="ltr"><c style="cs-6" lang="tl-0">Fussnote</c></p></note></c>',
+        'subpattern'    => array('{{NOTE}}'),                            
+        'template'      => '<c style="cs-0" lang="tl-0">{{NOTE}}<note stream="nsm-0">
+                                <p style="ps-5" dir="ltr">
+                                    <c style="cs-6" lang="tl-0">Fussnote</c>
+                                </p>
+                            </note></c>',
     ),
     'externallink' => array(
         'replacement'   => 'EXTERNALLINK',

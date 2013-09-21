@@ -84,6 +84,11 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         $contentType        = class_exists('ZipArchive') ? 'application/zip'    : 'text/xml';
         $contentFileName    = class_exists('ZipArchive') ? noNS($ID).'.mellel'  : 'main.xml';
         
+        // TODO configuration
+        if (class_exists('ZipArchive') AND true) {
+            $contentFileName = date('Y-m-d_').$contentFileName;
+        }
+        
         // send the content type header, new method after 2007-06-26 (handles caching)
         if (!DEBUG) {
             if (version_compare($dw_version, "20070626")) {
@@ -134,6 +139,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         
         $this->doc = str_replace('{{WIKIPAGE}}', str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
         $this->doc = str_replace('{{WIKIDATE}}', date('d.m.Y', $INFO['meta']['date']['created']).' by '.$INFO['meta']['last_change']['user'], $this->doc);
+        
+        $user       = $INFO['meta']['last_change']['user'];
+        $changed_ad = date('d.m.Y', $INFO['meta']['date']['modified']);       
         
         self::xml_errors($this->doc);
         $this->doc = self::remove_whitespace($this->doc);
@@ -220,6 +228,16 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             $mapping['template'] = $mapping['template_p_open'];
         }
         
+        // Special template for Headline level 1
+        if (in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
+            if ($args[1] == 1) {
+                $mapping['template'] = $mapping['template_level_0'];
+            } else {
+                // Reduce level by 1
+                $args[1]--;
+            }
+        }
+        
         // Get the corresponding part of the template
         $templateParts = explode($mapping['replacement'], $mapping['template']);
         
@@ -274,20 +292,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 
                 // Auslassungspunkte
                 $args[0] = str_replace(array('...'), array('…'), $args[0]);
-                
-                // Decrease header level by 1
-                if (in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
-                    // $args[0] = (int) $args[0] - 1;
-                }
-                
-                // if not header do replace 
+                                
+                // If not header do replace 
                 if (!in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
                     $args[0] = str_replace('"', '&quot;',   $args[0]); // This might depend on the way " are used in the XML template!!!
-                }
-                
-                // Trim headlines
-                if (!in_array($name, array('header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'))) {
-                    $args[0] = $args[0];
                 }
                 
                 // Highlight
@@ -325,12 +333,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         if (isset($args)) {
             $doc = str_replace($mapping['subpattern'], $args, $doc);
         }
-        
-        // Why???
-//          if ($tag === 'externallink') {
-//              $doc = urlencode($doc);
-//          }
-        
+                
         // Set header length
         if ($tag === 'header' OR (isset($key) AND $key === 'header')) {
             if (function_exists('mb_strlen')) {
