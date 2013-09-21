@@ -66,14 +66,22 @@ $m = array(
         'replacement'   => 'Fussnote',
         'alias'         => array(),
         'subpattern'    => array('{{NOTE}}'),
-//        'template'      => "<c style='cs-3'>{{NOTE}}<note stream='nsm-0'>
-//                              <p style='ps-0' dir='ltr'>
-//                                <c style='cs-0' lang='tl-0'>Fussnote</c>
-//                              </p>
-//                              </note>
-//                            </c>",
-                            
-        'template'      => '<c style="cs-0" lang="tl-0">{{NOTE}}<note stream="nsm-0"><p style="ps-5" dir="ltr"><c style="cs-6" lang="tl-0">Fussnote</c></p></note></c>',
+        
+        // Template contains another template of "normaler Text"!
+//      'template'      => "<p style='ps-0' dir='ltr'>
+//                                <c style='cs-3'>{{NOTE}}<note stream='nsm-0'>
+//                                  <p style='ps-0' dir='ltr'>
+//                                    <c style='cs-0' lang='tl-0'>Fussnote</c>
+//                                  </p>
+//                                </note>
+//                              </c>
+//                            </p>",
+        'template'      => "<c style='cs-3'>{{NOTE}}<note stream='nsm-0'>
+                              <p style='ps-0' dir='ltr'>
+                                <c style='cs-0' lang='tl-0'>Fussnote</c>
+                              </p>
+                              </note>
+                            </c>",
     ),
     'externallink' => array(
         'replacement'   => 'EXTERNALLINK',
