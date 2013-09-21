@@ -4182,7 +4182,7 @@
                       <grid-rect x="0" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-15">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4191,7 +4191,7 @@
                       <grid-rect x="1" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4257,7 +4257,7 @@
                       <grid-rect x="2" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-4">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                         </p>
                       </contents>
                       <attributes>ca-8</attributes>
@@ -4310,7 +4310,7 @@
                       <grid-rect x="0" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-15">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4319,7 +4319,7 @@
                       <grid-rect x="1" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4386,7 +4386,7 @@
                       <grid-rect x="2" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-4">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                         </p>
                       </contents>
                       <attributes>ca-8</attributes>
@@ -4448,7 +4448,7 @@
                       <grid-rect x="2" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-4">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                         </p>
                       </contents>
                       <attributes>ca-8</attributes>
@@ -4507,7 +4507,7 @@
                       <grid-rect x="2" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-4">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                         </p>
                       </contents>
                       <attributes>ca-8</attributes>
@@ -4560,7 +4560,7 @@
                       <grid-rect x="0" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-15">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4569,7 +4569,7 @@
                       <grid-rect x="1" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4619,7 +4619,7 @@
                       <grid-rect x="0" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-15">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4628,7 +4628,7 @@
                       <grid-rect x="1" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4698,7 +4698,7 @@
                       <grid-rect x="2" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-4">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                         </p>
                       </contents>
                       <attributes>ca-8</attributes>
@@ -4757,7 +4757,7 @@
                       <grid-rect x="2" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-4">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                         </p>
                       </contents>
                       <attributes>ca-8</attributes>
@@ -4811,7 +4811,7 @@
                       <grid-rect x="0" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-15">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4820,7 +4820,7 @@
                       <grid-rect x="1" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4870,7 +4870,7 @@
                       <grid-rect x="0" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr" over="po-15">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -4879,7 +4879,7 @@
                       <grid-rect x="1" y="0" w="1" h="1"/>
                       <contents>
                         <p style="ps-19" dir="ltr">
-                          <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                          <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                         </p>
                       </contents>
                       <attributes>ca-9</attributes>
@@ -5313,7 +5313,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -5355,7 +5355,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5364,7 +5364,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5459,7 +5459,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -5501,7 +5501,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5510,7 +5510,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5675,7 +5675,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -5717,7 +5717,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5726,7 +5726,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5821,7 +5821,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -5863,7 +5863,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5872,7 +5872,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -5962,7 +5962,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -6004,7 +6004,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6013,7 +6013,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6108,7 +6108,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -6150,7 +6150,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6159,7 +6159,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6249,7 +6249,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -6291,7 +6291,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6300,7 +6300,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6395,7 +6395,7 @@
                         <grid-rect x="2" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-4">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Ingeborg Solveig Lederer</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_BY}}</c>
                           </p>
                         </contents>
                         <attributes>ca-8</attributes>
@@ -6437,7 +6437,7 @@
                         <grid-rect x="0" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr" over="po-15">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14">Dezember 2007</c>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{EDITED_AT}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>
@@ -6446,7 +6446,7 @@
                         <grid-rect x="1" y="0" w="1" h="1"/>
                         <contents>
                           <p style="ps-19" dir="ltr">
-                            <c style="cs-21" var="b" lang="tl-0" over="co-14"/>
+                            <c style="cs-21" var="b" lang="tl-0" over="co-14">{{WIKIURL}}</c>
                           </p>
                         </contents>
                         <attributes>ca-9</attributes>

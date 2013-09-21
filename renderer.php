@@ -137,11 +137,18 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         $this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
         
         
-        $this->doc = str_replace('{{WIKIPAGE}}', str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
-        $this->doc = str_replace('{{WIKIDATE}}', date('d.m.Y', $INFO['meta']['date']['created']).' by '.$INFO['meta']['last_change']['user'], $this->doc);
+        // $this->doc = str_replace('{{WIKIPAGE}}', str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
+        // $this->doc = str_replace('{{WIKIDATE}}', date('d.m.Y', $INFO['meta']['date']['created']).' by '.$INFO['meta']['last_change']['user'], $this->doc);
         
         $user       = $INFO['meta']['last_change']['user'];
-        $changed_ad = date('d.m.Y', $INFO['meta']['date']['modified']);       
+        setlocale (LC_TIME, 'de_DE@euro', 'de_DE', 'de', 'ge');
+        $changed_at = date('D d.m.Y', $INFO['meta']['date']['modified']);
+        
+        $this->doc = str_replace('{{EDITED_AT}}', $changed_at,  $this->doc);
+        $this->doc = str_replace('{{EDITED_BY}}', $user,        $this->doc);
+        $this->doc = str_replace('{{WIKIURL}}',   str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
+        // $this->doc = str_replace();
+        
         
         self::xml_errors($this->doc);
         $this->doc = self::remove_whitespace($this->doc);
