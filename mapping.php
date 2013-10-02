@@ -1,40 +1,11 @@
 <?php
-
-/*    
-    <p style='ps-0' dir='ltr'>
-        <c style='cs-0' lang='tl-0'>Test</c>
-    </p>
-    <p style='ps-0' dir='ltr'>
-        <c style='cs-0' lang='tl-0' over='co-0'>Fett</c><c style='cs-0' lang='tl-0' over='co-1'/>
-        <c style='cs-0' lang='tl-0' over='co-2'>Kursiv</c><c style='cs-0' lang='tl-0' over='co-1'/>
-        <c style='cs-0' lang='tl-0' over='co-3'>Unterstrichen</c><c style='cs-0' lang='tl-0' over='co-4'> Freitext</c>
-    </p>
-    <p style='ps-0' dir='ltr'>
-        <c style='cs-0' lang='tl-0' over='co-4'>Test String am Ende.</c>
-        <c style='cs-0'>
-            <selection-insertion-point/>
-            <page-break/>
-        </c>
-    </p>
-    <p style='ps-1' dir='ltr'>
-        <c style='cs-0'/>
-    </p>
-</section>
-*/
-
-
-
+// p = function name (either "p" or "p_open" and p_close)
+// replacement = The pattern to replace bzw. to split the template
+// template = template with replacement
+// alias = other common names for the tag
+// subpattern = when there are additional parts in the template which have to be replaced (ex. h1 and footnotes)
 $m = array(
-    // p = function name (either "p" or "p_open" and p_close)
-    // replacement = The pattern to replace bzw. to split the template
-    // template = template with replacement
-    // alias = other common names for the tag
-    // subpattern = when there are additional parts in the template which have to be replaced (ex. h1 and footnotes)
-    
-    
-//<c style="cs-0">
-    
-    
+
     'p' => array(
         'replacement'   => 'normaler Text',
         'alias'         => array('section'),
@@ -67,7 +38,7 @@ $m = array(
                             </p>',
         'template_level_0' => '<p style="ps-1" dir="ltr">
                                   <c style="cs-1" lang="tl-0">
-                                      <autotitle level="0" index="0" model-string-length="21">
+                                      <autotitle level="0" index="0" model-string-length="{{LENGTH}}">
                                           <c style="cs-1" lang="tl-0">UEBERSCHRIFT</c>
                                       </autotitle> 
                                   </c>
@@ -129,19 +100,6 @@ $m = array(
         'template'      => "<c style='cs-0'>PLAIN</c>", // same template as "p", correct?
     ),
     
-    
-//  <list style="ls-0">
-//  <p style="ps-0" dir="ltr" list-level="1">
-//    <c style="cs-0">Erstens </c>
-//  </p>
-//  <p style="ps-0" dir="ltr" list-level="1">
-//    <c style="cs-0">Zweitens <selection-insertion-point/></c>
-//  </p>
-//  <p style="ps-0" dir="ltr" list-level="1">
-//    <c style="cs-0">Drittens</c>
-//  </p>
-//  </list>
-    
     'list' => array(
         'replacement'   => 'LIST',
         'alias'         => array('listu', 'listo'),
@@ -168,28 +126,28 @@ $m = array(
         'replacement'   => 'BOLD',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => "<c style='cs-0' lang='tl-0' over='co-0'>BOLD</c>",
+        'template'      => '<c style="cs-0" lang="tl-0" over="co-6">BOLD</c>',
     ),
     
     'emphasis' => array(
         'replacement'   => 'EMPHASIS',
         'alias'         => array('italic'),
         'subpattern'    => array(),
-        'template'      => "<c style='cs-0' lang='tl-0' over='co-2'>EMPHASIS</c>",
+        'template'      => '<c style="cs-0" lang="tl-0" over="co-3">EMPHASIS</c>',
     ),
     
     'underline' => array(
         'replacement'   => 'UNDERLINE',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => "<c style='cs-0' over='co-3'>UNDERLINE</c>",
+        'template'      => '<c style="cs-0" over="co-15">UNDERLINE</c>',
     ),
     
     'deleted' => array(
         'replacement'   => 'DELETED',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => '<c style="cs-0" over="co-4">DELETED</c>',
+        'template'      => '<c style="cs-0" over="co-16">DELETED</c>',
     ),
     
     'monospace' => array(
@@ -233,5 +191,12 @@ $m = array(
         'subpattern'    => array(),
         'template'      => '<c style="cs-0"> | </c>TABLECELL<c style="cs-0"> | </c>',
 //        'template'      => 'TABLECELL ',
+    ),
+    
+    'hr' => array(
+        'replacement'   => 'HR',
+        'alias'         => array(),
+        'subpattern'    => array(),
+        'template'      => '<p style="ps-0" dir="ltr">----</p>',
     ),
 );

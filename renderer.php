@@ -146,7 +146,12 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         
         $this->doc = str_replace('{{EDITED_AT}}', $changed_at,  $this->doc);
         $this->doc = str_replace('{{EDITED_BY}}', $user,        $this->doc);
-        $this->doc = str_replace('{{WIKIURL}}',   str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID, $this->doc);
+        
+        $url = str_replace(array('http://', 'https://'), '', DOKU_URL).'/'.$ID;
+        if (strlen($url) > 86) {
+            $url = str_pad($url, 86, '', STR_PAD_LEFT);
+        }
+        $this->doc = str_replace('{{WIKIURL}}',   $url, $this->doc);
         // $this->doc = str_replace();
         
         
@@ -290,7 +295,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 $args[0] = preg_replace("~ {0,1}\n~", ' ', $args[0]);
                 
                 // Geschützte Leerzeichen für "S. 1234"
-                $args[0] = preg_replace('~\sS\.([ ]{1})\d+~', '<dir-break-space/>', $args[0]);
+                // $args[0] = preg_replace('~\sS\.([ ]{1})\d+~', '<dir-break-space/>', $args[0]); // Seems not to work
                     
                 // Geviertstrich und Halbgeviertstrich
                 // TODO utf8 codes possible?

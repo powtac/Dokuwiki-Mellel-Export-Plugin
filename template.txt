@@ -2035,6 +2035,12 @@
       </main-font>
       <main-font-size value="9"/>
     </character-overrides>
+    <character-overrides ref='co-15'>
+      <line-type value='under'/>
+    </character-overrides>
+    <character-overrides ref='co-16'>
+      <line-type value='across'/>
+    </character-overrides>
     <paragraph-overrides ref="po-0">
       <alignment value="center"/>
     </paragraph-overrides>
@@ -4168,9 +4174,9 @@
               <leading-bleed value="0.5"/>
               <trailing-bleed value="0.5"/>
               <column-widths>
-                <column-width value="144"/>
-                <column-width value="144"/>
-                <column-width value="144"/>
+                <column-width value="60"/>
+                <column-width value="312"/>
+                <column-width value="60"/>
               </column-widths>
               <rows>
                 <row-group>
@@ -4296,9 +4302,9 @@
               <leading-bleed value="0.5"/>
               <trailing-bleed value="0.5"/>
               <column-widths>
-                <column-width value="144"/>
-                <column-width value="144"/>
-                <column-width value="144"/>
+                <column-width value="60"/>
+                <column-width value="312"/>
+                <column-width value="60"/>
               </column-widths>
               <rows>
                 <row-group>
@@ -4546,9 +4552,9 @@
               <leading-bleed value="0.5"/>
               <trailing-bleed value="0.5"/>
               <column-widths>
-                <column-width value="144"/>
-                <column-width value="144"/>
-                <column-width value="144"/>
+                <column-width value="60"/>
+                <column-width value="312"/>
+                <column-width value="60"/>
               </column-widths>
               <rows>
                 <row-group>
@@ -4605,9 +4611,9 @@
               <leading-bleed value="0.5"/>
               <trailing-bleed value="0.5"/>
               <column-widths>
-                <column-width value="144"/>
-                <column-width value="144"/>
-                <column-width value="144"/>
+                <column-width value="60"/>
+                <column-width value="312"/>
+                <column-width value="60"/>
               </column-widths>
               <rows>
                 <row-group>
@@ -4797,9 +4803,9 @@
               <leading-bleed value="0.5"/>
               <trailing-bleed value="0.5"/>
               <column-widths>
-                <column-width value="144"/>
-                <column-width value="144"/>
-                <column-width value="144"/>
+                <column-width value="60"/>
+                <column-width value="312"/>
+                <column-width value="60"/>
               </column-widths>
               <rows>
                 <row-group>
@@ -4856,9 +4862,9 @@
               <leading-bleed value="0.5"/>
               <trailing-bleed value="0.5"/>
               <column-widths>
-                <column-width value="144"/>
-                <column-width value="144"/>
-                <column-width value="144"/>
+                <column-width value="60"/>
+                <column-width value="312"/>
+                <column-width value="60"/>
               </column-widths>
               <rows>
                 <row-group>
@@ -4906,7 +4912,7 @@
     <page-style ref="pgs-0">
       <name>Seitennummer ab Seite 2</name>
       <unique-id>ERAS-e0a20907-6ab4-49f8-957c-17c7896cbbec</unique-id>
-      <different-first-page value="yes"/>
+      <different-first-page value="no"/>
       <different-odd-and_even value="no"/>
       <page-number-type value="arabic"/>
       <margins-and-orientation>
@@ -5059,7 +5065,7 @@
       </even-attributes>
       <first-attributes version="1">
         <page-color type="calibrated-white" white="1" alpha="1"/>
-        <header-visible value="no"/>
+        <header-visible value="yes"/>
         <footer-visible value="yes"/>
         <header-text>
           <p style="ps-19" dir="ltr">
@@ -5341,9 +5347,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="60"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -5487,9 +5493,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="60"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -5703,9 +5709,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="60"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -5849,9 +5855,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="60"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -5990,9 +5996,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="60"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -6136,9 +6142,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="60"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -6277,9 +6283,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="162"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="58"/>
                 </column-widths>
                 <rows>
                   <row-group>
@@ -6423,9 +6429,9 @@
                 <leading-bleed value="0.5"/>
                 <trailing-bleed value="0.5"/>
                 <column-widths>
-                  <column-width value="144"/>
-                  <column-width value="144"/>
-                  <column-width value="162"/>
+                  <column-width value="60"/>
+                  <column-width value="312"/>
+                  <column-width value="58"/>
                 </column-widths>
                 <rows>
                   <row-group>
