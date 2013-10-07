@@ -120,9 +120,10 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         // Global replacements
         
         // General replace for empty tags?
-        $this->doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $this->doc);
-        $this->doc = str_replace(array('<p style=\'ps-0\' dir=\'ltr\'></p>', '<c style="cs-0" dir="ltr"></c>', '<c style="\'cs-0\'" dir="\'ltr\'"></c>', "<c style=\"\'cs-0\'\" dir=\"'ltr'\"></c>"), '', $this->doc);
-        $this->doc = str_replace('<p style=\'ps-0\' dir=\'ltr\'></p>', '', $this->doc);
+        // TODO They do now work properly!
+        #$this->doc = str_replace(array('<c style=\'cs-0\'></c>', '<c style="cs-0"></c>', '<c style="\'cs-0\'"></c>', "<c style=\"\'cs-0\'\"></c>"), '', $this->doc);
+        #$this->doc = str_replace(array('<p style=\'ps-0\' dir=\'ltr\'></p>', '<c style="cs-0" dir="ltr"></c>', '<c style="\'cs-0\'" dir="\'ltr\'"></c>', "<c style=\"\'cs-0\'\" dir=\"'ltr'\"></c>"), '', $this->doc);
+        #$this->doc = str_replace('<p style=\'ps-0\' dir=\'ltr\'></p>', '', $this->doc);
         
         
         if (DEBUG) {
@@ -213,9 +214,17 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             $multi  = false;
         }
         
-        
         $tag = str_replace(array('_open', '_close'), '', $name); // not nice but short
 
+        
+        // Footnote
+        if (!isset($this->footnote_open)) {
+            $this->footnote_open = false;
+        }
+        if ($tag == 'footnote') {
+            $this->footnote_open  = $type == 'OPEN';
+        } 
+        
 
         if (isset($m[$tag])) {
             $mapping = $m[$tag];
@@ -335,6 +344,13 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             default:
                 die('No type set');
         }
+        
+        
+        // Formating within footnote text
+        if ($this->footnote_open AND $tag != 'footnote') {
+            $doc = str_replace(' style="cs-0"', ' style="cs-6"', $doc);
+        }
+        
         
         
         // Check the given arguments and parse additional information

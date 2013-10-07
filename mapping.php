@@ -7,59 +7,59 @@
 $m = array(
 
     'p' => array(
-        'replacement'   => 'normaler Text',
+        'replacement'   => 'NORMAL_TEXT',
         'alias'         => array('section'),
         'subpattern'    => array(),
         
-        // Normaler Text mit Absatz!
-        'template'      => "<p style='ps-0' dir='ltr'>normaler Text</p>",      
-//        'template'      => "<c style='cs-0'>normaler Text</c>",
+        // Normal text with paragraph
+        'template'      => '<p style="ps-0" dir="ltr">NORMAL_TEXT</p>',      
     ),
     
-    // normaler Text
+    // Normal text
     'cdata' => array(
         'replacement'   => 'CDATA',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => "<c style='cs-0'>CDATA</c>",
+        'template'      => '<c style="cs-0">CDATA</c>',
     ),
     
     
     'header' => array(
-        'replacement'   => 'UEBERSCHRIFT',
+        'replacement'   => 'HEADLINE',
         'alias'         => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
         'subpattern'    => array('{{LEVEL}}'),
         'template'      => '<p style="ps-6" dir="ltr">
                               <c style="cs-7" lang="tl-0">
                                 <autotitle level="{{LEVEL}}" index="0" model-string-length="{{LENGTH}}">
-                                  <c style="cs-7" lang="tl-0">UEBERSCHRIFT</c>
+                                  <c style="cs-7" lang="tl-0">HEADLINE</c>
                                 </autotitle>
                               </c>
                             </p>',
         'template_level_0' => '<p style="ps-1" dir="ltr">
                                   <c style="cs-1" lang="tl-0">
                                       <autotitle level="0" index="0" model-string-length="{{LENGTH}}">
-                                          <c style="cs-1" lang="tl-0">UEBERSCHRIFT</c>
+                                          <c style="cs-1" lang="tl-0">HEADLINE</c>
                                       </autotitle> 
                                   </c>
                                 </p>',
     ),
     
     'footnote' => array(
-        'replacement'   => 'Fussnote',
+        'replacement'   => 'FOOTNOTE',
         'alias'         => array(),
         'subpattern'    => array('{{NOTE}}'),                            
         'template'      => '<c style="cs-0" lang="tl-0">{{NOTE}}<note stream="nsm-0">
                                 <p style="ps-5" dir="ltr">
-                                    <c style="cs-6" lang="tl-0">Fussnote</c>
+                                    <c style="cs-6" lang="tl-0">FOOTNOTE</c>
                                 </p>
                             </note></c>',
     ),
+    
     'externallink' => array(
         'replacement'   => 'EXTERNALLINK',
-        'alias'         => array('internallink', 'internalmedia'), // TODO internalmedia might not work
+        'alias'         => array('internallink', 'internalmedia'),
         'subpattern'    => array('{{TITLE}}'),
-        'template'      => "<c style='cs-0'><hyperlink display-as-link='yes'><display-text><c style='cs-0'>{{TITLE}}</c><c style='cs-0'/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>",
+        "template"      => '<c style="cs-0"><hyperlink display-as-link="yes"><display-text><c style="cs-0">{{TITLE}}</c><c style="cs-0"/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>',
     ),
 
     // http://mountaindragon.com/html/iso.htm
@@ -97,7 +97,7 @@ $m = array(
         'replacement'   => 'PLAIN',
         'alias'         => array('entity', 'acronym', 'preformatted'),
         'subpattern'    => array(),
-        'template'      => "<c style='cs-0'>PLAIN</c>", // same template as "p", correct?
+        'template'      => '<c style="cs-0">PLAIN</c>', // same template as "p"?
     ),
     
     'list' => array(
@@ -182,7 +182,7 @@ $m = array(
         'replacement'   => 'TABLEROW',
         'alias'         => array(),
         'subpattern'    => array(),
-        'template'      => "<p style='ps-0' dir='ltr'>TABLEROW</p>",
+        'template'      => '<p style="ps-0" dir="ltr">TABLEROW</p>',
     ),
     
     'tablecell' => array(
@@ -190,7 +190,6 @@ $m = array(
         'alias'         => array(),
         'subpattern'    => array(),
         'template'      => '<c style="cs-0"> | </c>TABLECELL<c style="cs-0"> | </c>',
-//        'template'      => 'TABLECELL ',
     ),
     
     'hr' => array(
