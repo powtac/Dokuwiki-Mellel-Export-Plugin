@@ -117,6 +117,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         }
         global $ID, $INFO;
         
+        // http://stackoverflow.com/a/14464026/22470
+        $this->doc = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->doc);
+        
         // Global replacements
         
         // General replace for empty tags?
@@ -125,6 +128,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         #$this->doc = str_replace(array('<p style=\'ps-0\' dir=\'ltr\'></p>', '<c style="cs-0" dir="ltr"></c>', '<c style="\'cs-0\'" dir="\'ltr\'"></c>', "<c style=\"\'cs-0\'\" dir=\"'ltr'\"></c>"), '', $this->doc);
         #$this->doc = str_replace('<p style=\'ps-0\' dir=\'ltr\'></p>', '', $this->doc);
         
+       
         
         if (DEBUG) {
             // $this->doc = self::remove_whitespace('<?xml version="1.0" encoding="utf-8" ? >'.$this->doc); // does not work. 
@@ -133,8 +137,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             echo '<pre>'.$this->doc.'</pre>';
         }
         
-        $template = file_get_contents(dirname(__FILE__).'/template.txt');
         
+        
+        $template = file_get_contents(dirname(__FILE__).'/template.txt');
         $this->doc = str_replace('{{CONTENT}}', $this->doc, $template);
         
         
@@ -417,13 +422,32 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         $errors = libxml_get_errors();
         
         if (count($errors) > 0) {
-            echo 'XML Error:';
+            echo 'Details';
             echo '<pre style="border: 1px solid red; border-radius:2px; padding:5px">';
-            var_dump($errors);
+            $lines = explode("\n", $xml);
+            $padding = 70;
+            foreach($errors as $error) {
+                $line = $lines[($error->line - 1)];
+                
+                $start = ($error->column - $padding) > 0 ? ($error->column - $padding) : 0;
+                
+                echo trim($error->message).'<br />';
+                echo htmlentities(substr($line, $start, $padding * 2)).'...<br />';
+                
+                $column = $error->column - $start - 1;
+                echo str_pad('', $column, '-').'^';
+                echo '<br /><br />'; 
+            }
             echo '</pre>';
+            
+            echo 'XML Error(s):';
+            echo '<pre style="border: 1px solid red; border-radius:2px; padding:5px">';
+            echo var_export($errors, 1);
+            echo '</pre>';
+            
             echo 'Plain XML:';
             echo '<pre style="border: 1px solid black; border-radius:2px; padding:5px">';
-            var_dump(htmlentities($xml));
+            echo htmlentities($xml);
             echo '</pre>';
             exit;
         }
