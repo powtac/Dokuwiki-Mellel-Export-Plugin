@@ -66,6 +66,63 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
     }
 
     function document_start() {
+        
+        
+        
+        if (!defined('RECURSIVE_MELLEL')) {
+            define('RECURSIVE_MELLEL', TRUE);
+            if (!defined('DEBUG')) {
+                define('DEBUG', TRUE);
+            }
+            
+            set_time_limit(60*5);
+            
+            if (isset($_REQUEST['list'])) {
+                $dirs = glob('/var/www/kolchose.org/inge/wiki/data/pages/*');
+                
+                
+                echo '<h1>No files</h1>';
+                foreach ($dirs as $dir) {
+                    if (is_file($dir)) {
+                        $new_dir = $dir;
+//                      $new_dir = str_replace('/var/www/kolchose.org/inge/wiki/data/pages/', '', $new_dir);
+//                      $new_dir = str_replace('.txt', '', $new_dir);
+                        $new_dirs[] = $new_dir;
+                    } else {
+                        echo $dir.'<br />';
+                    }
+                }
+                
+                unset($dirs);
+                
+                echo '<h1>Formatation ok?</h1>';
+//                $test_file = $new_dirs[1];
+//                
+//                echo $test_file.'<br />';
+                
+                #var_dump(
+                #self::render(file_get_contents($test_file), 'mellelexport');
+                #);
+                
+                $i = 0;
+                foreach($new_dirs as $file) {
+                    echo $file.'<br />';
+                    self::render(file_get_contents($file), 'mellelexport');
+                    
+                    ob_flush();
+                    
+                    $i++;
+                    if ($i > 50) {
+                        exit;
+                    }
+                }
+               
+                exit;
+            }
+        }
+        
+        
+        
         plugin_disable('highlight');
         if (in_array('highlight', plugin_list())) {
             die('ERROR: highlight loaded 1');   
@@ -118,7 +175,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         global $ID, $INFO;
         
         // http://stackoverflow.com/a/14464026/22470
-        $this->doc = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->doc);
+        $this->doc = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->doc);
         
         // Global replacements
         
@@ -199,6 +256,9 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
             die('ERROR: highlight loaded');
         }
         
+
+        require dirname(__FILE__).'/mapping.php';
+        $this->conf['m'] = $m;
         
         $m      = $this->conf['m'];
         $args   = func_get_args();
@@ -229,7 +289,7 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         if ($tag == 'footnote') {
             $this->footnote_open  = $type == 'OPEN';
         } 
-        
+
 
         if (isset($m[$tag])) {
             $mapping = $m[$tag];
