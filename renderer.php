@@ -174,6 +174,14 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
         }
         global $ID, $INFO;
         
+        // Remove trailing empty pharentis, they can case crashes
+        $this->doc = trim($this->doc);
+        $pattern = '<p style="ps-0" dir="ltr"></p>';
+        if (substr($this->doc, 0, strlen($pattern))) {
+            $this->doc = substr($this->doc, strlen($pattern));
+        }
+
+        
         // http://stackoverflow.com/a/14464026/22470
         $this->doc = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->doc);
         
