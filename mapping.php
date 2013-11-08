@@ -53,6 +53,11 @@ $m = array(
                                     <c style="cs-6" lang="tl-0">FOOTNOTE</c>
                                 </p>
                             </note></c>',
+//        'template_p_open' => '</p><c style="cs-0" lang="tl-0">{{NOTE}}<note stream="nsm-0">
+//                                <p style="ps-5" dir="ltr">
+//                                    <c style="cs-6" lang="tl-0">FOOTNOTE</c>
+//                                </p>
+//                            </note></c><p style="ps-0" dir="ltr">',
     ),
     
     'externallink' => array(
@@ -105,7 +110,7 @@ $m = array(
         'alias'         => array('listu', 'listo'),
         'subpattern'    => array(),
         'template'      => '<list style="ls-0">LIST</list>',
-        'template_p_open' => '</p><list style="ls-0">LIST</list><p style="ps-0" dir="ltr">',
+        #'template_p_open' => '<list style="ls-0">LIST</list>',
     ),    
     
     'listcontent' => array(
