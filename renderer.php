@@ -361,7 +361,14 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                 $args[0] = str_replace('<',     '&lt;',     $args[0]);
                 $args[0] = str_replace('>',     '&gt;',     $args[0]);
                 
-                // Add link text if there is none                
+                if (isset($args[1]) AND (strpos($name, 'link') != false)) {
+                    $args[1] = str_replace('&',     '&amp;',    $args[1]);
+                    $args[1] = str_replace('\'',    '&apos;',   $args[1]);
+                    $args[1] = str_replace('<',     '&lt;',     $args[1]);
+                    $args[1] = str_replace('>',     '&gt;',     $args[1]);
+                }
+                
+                // Add link text if there is none
                 if (($name === 'internallink' OR $name === 'externallink') AND empty($args[1])) {
                     $args[1] = $args[0];
                 }
