@@ -62,7 +62,7 @@ $m = array(
     
     'externallink' => array(
         'replacement'   => 'EXTERNALLINK',
-        'alias'         => array('internallink', 'internalmedia'),
+        'alias'         => array('internallink', 'internalmedia', 'emaillink'),
         'subpattern'    => array('{{TITLE}}'),
         "template"      => '<c style="cs-0"><hyperlink display-as-link="yes"><display-text><c style="cs-0">{{TITLE}}</c><c style="cs-0"/></display-text><url-string>EXTERNALLINK</url-string></hyperlink></c>',
     ),

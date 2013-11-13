@@ -368,13 +368,17 @@ class renderer_plugin_mellelexport extends Doku_Renderer {
                     $args[1] = str_replace('>',     '&gt;',     $args[1]);
                 }
                 
+                if ($name == 'emaillink') {
+                    $args[0] = 'mailto:'.$args[0];
+                }
+                
                 // Add link text if there is none
-                if (($name === 'internallink' OR $name === 'externallink') AND empty($args[1])) {
+                if (($name === 'internallink' OR $name === 'externallink' OR $name === 'emaillink') AND empty($args[1])) {
                     $args[1] = $args[0];
                 }
                 
                 // Link text " -> &qout;
-                if (($name === 'internallink' OR $name === 'externallink') AND empty($args[1])) {
+                if (($name === 'internallink' OR $name === 'externallink' OR $name === 'emaillink') AND empty($args[1])) {
                     $args[1] = str_replace('"', '&quot;', $args[1]);
                 }
                 
